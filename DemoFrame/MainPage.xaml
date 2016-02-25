@@ -16,6 +16,7 @@
             </StackPanel>
         </DataTemplate>
     </Page.Resources>
+    
     <!---->
     <Grid x:Name="myPanel" SizeChanged="headerRoot_SizeChanged">
         <SplitView x:Name="splitView"  PaneBackground="#FF2B2B2B"
