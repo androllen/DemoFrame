@@ -16,9 +16,12 @@
             </StackPanel>
         </DataTemplate>
     </Page.Resources>
-    
+
     <!---->
     <Grid x:Name="myPanel" SizeChanged="headerRoot_SizeChanged">
+        <Frame x:Name="newFrame" Visibility="Collapsed">
+            <TextBlock Text="111" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Frame>
         <SplitView x:Name="splitView"  PaneBackground="#FF2B2B2B"
                            IsPaneOpen="False"
                            OpenPaneLength="140"
@@ -77,10 +80,20 @@
                         <PaneThemeTransition/>-->
     </TransitionCollection>
     </Grid.ChildrenTransitions>
-    <Grid Background="Gray"  BorderBrush="Blue" BorderThickness="1">
-
+    <Grid x:Name="RootGrid" Background="Gray"  BorderBrush="Blue" BorderThickness="1">
+        <Frame x:Name="RootFrame">
+            <Frame.ContentTransitions>
+                <TransitionCollection>
+                    <NavigationThemeTransition>
+                        <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                            <EntranceNavigationTransitionInfo />
+                        </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    </NavigationThemeTransition>
+                </TransitionCollection>
+            </Frame.ContentTransitions>
+        </Frame>
     </Grid>
-    <Grid Name="myGrid" Grid.Column="1"  BorderBrush="Green" BorderThickness="1">
+    <Grid Name="ContentGrid" Grid.Column="1"  BorderBrush="Green" BorderThickness="1">
         <Frame x:Name="RootContentFrame">
             <Frame.ContentTransitions>
                 <TransitionCollection>
@@ -95,8 +108,6 @@
     </Grid>
     </Grid>
     </SplitView>
-
-
     <VisualStateManager.VisualStateGroups>
         <VisualStateGroup>
             <VisualState x:Name="LargeWideLayout">
@@ -121,6 +132,7 @@
                 </VisualState.StateTriggers>
                 <VisualState.Setters>
                     <Setter Target="splitView.Visibility" Value="Collapsed" />
+                    <Setter Target="newFrame.Visibility" Value="Visible" />
                 </VisualState.Setters>
             </VisualState>
         </VisualStateGroup>
