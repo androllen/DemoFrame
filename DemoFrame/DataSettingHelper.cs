@@ -10,6 +10,7 @@ namespace DemoFrame
     public class DataSettingHelper
     {
         private const string KEY_FOLDERNAME = "wellBeing";
+        public const string KEY_FOLDER = "test";
 
         private const string KEY_F_STATIC_PKGNAME = "static_pkg_name";
         private const string KEY_F_STATIC_AGE = "static_pkg_age";
@@ -18,7 +19,7 @@ namespace DemoFrame
         private const string KEY_F_STATIC_VERNAME = "static_ver_name";
         private const string KEY_F_STATIC_CHANNEL = "static_channel";
 
-        private static DataSettingHelper instance;
+        private static readonly DataSettingHelper instance= new DataSettingHelper();
         public static DataSettingHelper getInstance
         {
             get { return instance; }
@@ -30,13 +31,7 @@ namespace DemoFrame
             myDataContainer = ApplicationData.Current.LocalSettings;
             createContainer();
         }
-        public static void init()
-        {
-            if (instance == null)
-            {
-                instance = new DataSettingHelper();
-            }
-        }
+
         /// <summary>
         /// 创建容器
         /// </summary>
@@ -51,7 +46,14 @@ namespace DemoFrame
         {
             myDataContainer.DeleteContainer(KEY_FOLDERNAME);
         }
-
+        /// <summary>
+        /// 是否含有容器文件夹
+        /// </summary>
+        /// <returns></returns>
+        private bool hasContainer()
+        {
+            return myDataContainer.Containers.ContainsKey(KEY_FOLDERNAME);
+        }
         /// <summary>
         /// 增加数据
         /// </summary>
@@ -60,7 +62,7 @@ namespace DemoFrame
         /// <param name="value"></param>
         public void setValues<T>(string key, T value)
         {
-            if (value == null || !hasValues(key))
+            if (value == null | hasValues(key))
                 return;
 
             myDataContainer.Values[key] = value;
@@ -87,14 +89,7 @@ namespace DemoFrame
         {
             myDataContainer.Values.Remove(key);
         }
-        /// <summary>
-        /// 是否含有容器文件夹
-        /// </summary>
-        /// <returns></returns>
-        private bool hasContainer()
-        {
-            return myDataContainer.Containers.ContainsKey(KEY_FOLDERNAME);
-        }
+
         /// <summary>
         /// 是否含有键
         /// </summary>
@@ -112,7 +107,7 @@ namespace DemoFrame
         /// <returns></returns>
         public T getValues<T>(string key, T defaultValue)
         {
-            if (hasContainer() && myDataContainer.Values.ContainsKey(key))
+            if (hasValues(key))
             {
                 return (T)myDataContainer.Values[key];
             }

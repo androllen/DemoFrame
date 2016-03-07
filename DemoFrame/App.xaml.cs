@@ -1,5 +1,7 @@
 ﻿using Caliburn.Micro;
 using DemoFrame.ViewModels;
+using Windows.ApplicationModel.Activation;
+using Windows.UI.Xaml;
 
 namespace DemoFrame
 {
@@ -19,13 +21,19 @@ namespace DemoFrame
         protected override void Configure()
         {
             base.Configure();
-
-            DataSettingHelper.init();
-            DataSettingHelper.getInstance.setValues<string>("", string.Empty);
-
+            
             _container.PerRequest<ShellViewModel>();
+
+            DataSettingHelper.getInstance.setValues<string>(DataSettingHelper.KEY_FOLDER, "hello world! key-values");
+            string data = DataSettingHelper.getInstance.getValues<string>(DataSettingHelper.KEY_FOLDER, string.Empty);
         }
 
+        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        {
+            DisplayRootViewFor<ShellViewModel>();
+            Window.Current.Activate();
+
+        }
 
     }
 }
