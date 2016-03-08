@@ -7,7 +7,7 @@ using Windows.Storage;
 
 namespace DemoFrame
 {
-    public class DataSettingHelper
+    public class Settings
     {
         private const string KEY_FOLDERNAME = "wellBeing";
         public const string KEY_FOLDER = "test";
@@ -19,14 +19,14 @@ namespace DemoFrame
         private const string KEY_F_STATIC_VERNAME = "static_ver_name";
         private const string KEY_F_STATIC_CHANNEL = "static_channel";
 
-        private static readonly DataSettingHelper instance= new DataSettingHelper();
-        public static DataSettingHelper getInstance
+        private static readonly Settings instance = new Settings();
+        public static Settings getInstance
         {
             get { return instance; }
         }
         private readonly ApplicationDataContainer myDataContainer;
 
-        private DataSettingHelper()
+        private Settings()
         {
             myDataContainer = ApplicationData.Current.LocalSettings;
             createContainer();

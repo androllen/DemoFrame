@@ -24,14 +24,14 @@ namespace DemoFrame
             
             _container.PerRequest<ShellViewModel>();
 
-            DataSettingHelper.getInstance.setValues<string>(DataSettingHelper.KEY_FOLDER, "hello world! key-values");
-            string data = DataSettingHelper.getInstance.getValues<string>(DataSettingHelper.KEY_FOLDER, string.Empty);
+            Settings.getInstance.setValues<string>(Settings.KEY_FOLDER, "hello world! key-values");
+            string data = Settings.getInstance.getValues<string>(Settings.KEY_FOLDER, string.Empty);
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
             DisplayRootViewFor<ShellViewModel>();
-            Window.Current.Activate();
+         
 
         }
 

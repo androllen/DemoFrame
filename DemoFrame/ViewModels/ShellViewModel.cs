@@ -17,12 +17,17 @@ namespace DemoFrame.ViewModels
         {
             _container = container;
         }
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+        }
         protected override void OnActivate()
         {
+            base.OnActivate();
         }
-
         protected override void OnDeactivate(bool close)
         {
+            base.OnDeactivate(true);
         }
 
         public void SetupNavigationService(Frame frame)
