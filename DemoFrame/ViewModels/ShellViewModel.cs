@@ -11,9 +11,9 @@ namespace DemoFrame.ViewModels
     public class ShellViewModel : Screen
     {
         private INavigationService _navigationService;
-        private readonly WinRTContainer _container;
+        private readonly INotifyFrameChanged _container;
 
-        public ShellViewModel(WinRTContainer container)
+        public ShellViewModel(INotifyFrameChanged container)
         {
             _container = container;
         }
@@ -32,7 +32,7 @@ namespace DemoFrame.ViewModels
 
         public void SetupNavigationService(Frame frame)
         {
-            _navigationService = _container.RegisterNavigationService(frame);
+            //_navigationService = _container.RegisterNavigationService(frame);
 
         }
 
