@@ -21,7 +21,7 @@
             </SplitView.Pane>
             <SplitView.Content>
                 <Grid>
-                    <Frame cm:Message.Attach="[Event Loading] = [SetupNavigationService($source)]" DataContext="{x:Null}" />
+                    <!--<Frame cm:Message.Attach="[Event Loading] = [SetupNavigationService($source)]" DataContext="{x:Null}" />-->
                     <Button Click="OpenNavigationView" Content="&#xE700;" FontFamily="{ThemeResource SymbolThemeFontFamily}" VerticalAlignment="Top" Margin="24" />
                 </Grid>
             </SplitView.Content>

@@ -22,7 +22,7 @@ namespace DemoFrame
         {
             base.Configure();
             
-            _container.PerRequest<ShellViewModel>();
+            _container.PerRequest<MainViewModel>();
             _container.RegisterSingleton(typeof(INotifyFrameChanged),string.Empty, typeof(BaseFrame));
 
             Settings.getInstance.setValues<string>(Settings.KEY_FOLDER, "hello world! key-values");
@@ -31,7 +31,7 @@ namespace DemoFrame
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            DisplayRootViewFor<ShellViewModel>();
+            DisplayRootViewFor<MainViewModel>();
          
 
         }
