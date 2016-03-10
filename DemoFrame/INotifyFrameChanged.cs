@@ -21,7 +21,5 @@ namespace DemoFrame
         event EventHandler NotifyRightFramePage;
 
         event EventHandler<BackRequestedEventArgs> BackKeyPressing;
-        
-        void onBackKeyPressed();
     }
 }

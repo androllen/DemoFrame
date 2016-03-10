@@ -10,9 +10,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace DemoFrame
 {
-    public class BaseFrame : INotifyFrameChanged
+    public abstract class BaseFrame : INotifyFrameChanged
     {
-        protected readonly WinRTContainer _container = null;
+        protected readonly WinRTContainer _container;
         public BaseFrame(WinRTContainer container)
         {
             _container = container;
@@ -28,11 +28,11 @@ namespace DemoFrame
         public event EventHandler<bool> NotifyLeftFramePage;
         public event EventHandler NotifyRightFramePage;
 
-        public void onBackKeyPressed()
-        {
-           
-        }
+        public abstract void onBackKeyPressed();
   
+
+
+
         //protected BaseFrame mCurrentFragment;
         //private bool mCloseWarned = false;
 

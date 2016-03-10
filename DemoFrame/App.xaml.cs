@@ -23,7 +23,7 @@ namespace DemoFrame
             base.Configure();
             
             _container.PerRequest<MainViewModel>();
-            _container.RegisterSingleton(typeof(INotifyFrameChanged),string.Empty, typeof(BaseFrame));
+            _container.RegisterSingleton(typeof(INotifyFrameChanged), string.Empty, typeof(PhoneFrameMgr));
 
             Settings.getInstance.setValues<string>(Settings.KEY_FOLDER, "hello world! key-values");
             string data = Settings.getInstance.getValues<string>(Settings.KEY_FOLDER, string.Empty);
