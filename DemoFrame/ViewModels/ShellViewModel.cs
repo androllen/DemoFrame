@@ -10,12 +10,11 @@ namespace DemoFrame.ViewModels
 {
     public class ShellViewModel : Screen
     {
-        private INavigationService _navigationService;
-        private readonly INotifyFrameChanged _container;
+        private readonly INavigationService _navigationService;
 
-        public ShellViewModel(INotifyFrameChanged container)
+        public ShellViewModel(INavigationService container)
         {
-            _container = container;
+            _navigationService = container;
         }
         protected override void OnInitialize()
         {
@@ -38,7 +37,7 @@ namespace DemoFrame.ViewModels
 
         public void ShowDevices()
         {
-            _navigationService.For<ShellViewModel>().Navigate();
+            _navigationService.For<MainViewModel>().Navigate();
         }
 
     }

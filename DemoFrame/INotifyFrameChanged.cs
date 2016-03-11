@@ -21,5 +21,11 @@ namespace DemoFrame
         event EventHandler NotifyRightFramePage;
 
         event EventHandler<BackRequestedEventArgs> BackKeyPressing;
+
+        INavigationService MainNavService(Frame frame);
+
+        INavigationService ContentNavService(Frame frame);
+
+        INavigationService RootNavService(Frame frame);
     }
 }

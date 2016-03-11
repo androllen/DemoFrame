@@ -17,21 +17,16 @@ namespace DemoFrame
         {
             _container = container;
         }
-        public INavigationService LeftNavService { get; }
-        public Frame LeftPageFrame { get; set; }
-        public INavigationService MainNavService { get; private set; }
-        public Frame MainPageFrame { get; set; }
-        public INavigationService RightNavService { get; }
-        public Frame RightPageFrame { get; set; }
 
         public event EventHandler<BackRequestedEventArgs> BackKeyPressing;
         public event EventHandler<bool> NotifyLeftFramePage;
         public event EventHandler NotifyRightFramePage;
 
         public abstract void onBackKeyPressed();
-  
 
-
+        public abstract INavigationService MainNavService(Frame frame);
+        public abstract INavigationService RightNavService(Frame frame);
+        public abstract INavigationService CenterNavService(Frame frame);
 
         //protected BaseFrame mCurrentFragment;
         //private bool mCloseWarned = false;

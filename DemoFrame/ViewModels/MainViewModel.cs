@@ -24,10 +24,10 @@ namespace DemoFrame.ViewModels
         {
             get { return _navLinks; }
         }
-
         protected readonly INotifyFrameChanged _frame;
         protected readonly WinRTContainer _container;
         private INavigationService _navigationService;
+
 
         protected override void OnActivate()
         {
@@ -38,22 +38,33 @@ namespace DemoFrame.ViewModels
             base.OnDeactivate(close);
         }
 
-        public MainViewModel(WinRTContainer container)
+        public MainViewModel(WinRTContainer container, INotifyFrameChanged frame)
         {
             _container = container;
+            _frame = frame;
         }
 
         public void SetupPhoneFrameNavigationService(Frame frame)
         {
-            _navigationService = _container.RegisterNavigationService(frame);
+            //_navigationService = new FrameAdapter(frame);
+            //_navigationService = _container.RegisterNavigationService(frame);
+            _frame.CenterNavService = new FrameAdapter(frame);
+            MainNavService = new FrameAdapter(frame);
+            _container.RegisterInstance(typeof(INavigationService), "mainFrame", MainNavService);
         }
         public void SetupDesktopRootNavigationService(Frame frame)
         {
-            _navigationService = _container.RegisterNavigationService(frame);
+            //_navigationService = new FrameAdapter(frame);
+            //_navigationService = _container.RegisterNavigationService(frame);
+            MainNavService = new FrameAdapter(frame);
+            _container.RegisterInstance(typeof(INavigationService), "rootFrame", RootNavService);
         }
         public void SetupDesktopContentNavigationService(Frame frame)
         {
-            _navigationService = _container.RegisterNavigationService(frame);
+            //_navigationService = new FrameAdapter(frame);
+            //_navigationService = _container.RegisterNavigationService(frame);
+            MainNavService = new FrameAdapter(frame);
+            _container.RegisterInstance(typeof(INavigationService), "contentFrame", ContentNavService);
         }
 
         public void TitleClick(ItemClickEventArgs e)
@@ -64,7 +75,7 @@ namespace DemoFrame.ViewModels
 
         public void onBackKeyPressed()
         {
-            throw new NotImplementedException();
+          
         }
     }
 }
