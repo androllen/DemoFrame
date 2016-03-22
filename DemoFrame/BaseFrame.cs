@@ -18,15 +18,26 @@ namespace DemoFrame
             _container = container;
         }
 
+        public abstract void onBackKeyPressed();
         public event EventHandler<BackRequestedEventArgs> BackKeyPressing;
         public event EventHandler<bool> NotifyLeftFramePage;
         public event EventHandler NotifyRightFramePage;
 
-        public abstract void onBackKeyPressed();
 
-        public abstract INavigationService MainNavService(Frame frame);
-        public abstract INavigationService RightNavService(Frame frame);
-        public abstract INavigationService CenterNavService(Frame frame);
+        public INavigationService ContentNavService(Frame frame)
+        {
+            return _container.RegisterNavigationService(frame);
+        }
+
+        public INavigationService MainNavService(Frame frame)
+        {
+            return _container.RegisterNavigationService(frame);
+        }
+
+        public INavigationService RootNavService(Frame frame)
+        {
+            return _container.RegisterNavigationService(frame);
+        }
 
         //protected BaseFrame mCurrentFragment;
         //private bool mCloseWarned = false;

@@ -26,8 +26,6 @@ namespace DemoFrame.ViewModels
         }
         protected readonly INotifyFrameChanged _frame;
         protected readonly WinRTContainer _container;
-        private INavigationService _navigationService;
-
 
         protected override void OnActivate()
         {
@@ -46,25 +44,15 @@ namespace DemoFrame.ViewModels
 
         public void SetupPhoneFrameNavigationService(Frame frame)
         {
-            //_navigationService = new FrameAdapter(frame);
-            //_navigationService = _container.RegisterNavigationService(frame);
-            _frame.CenterNavService = new FrameAdapter(frame);
-            MainNavService = new FrameAdapter(frame);
-            _container.RegisterInstance(typeof(INavigationService), "mainFrame", MainNavService);
+            _frame.MainNavService(frame);
         }
         public void SetupDesktopRootNavigationService(Frame frame)
         {
-            //_navigationService = new FrameAdapter(frame);
-            //_navigationService = _container.RegisterNavigationService(frame);
-            MainNavService = new FrameAdapter(frame);
-            _container.RegisterInstance(typeof(INavigationService), "rootFrame", RootNavService);
+            _frame.RootNavService(frame);
         }
         public void SetupDesktopContentNavigationService(Frame frame)
         {
-            //_navigationService = new FrameAdapter(frame);
-            //_navigationService = _container.RegisterNavigationService(frame);
-            MainNavService = new FrameAdapter(frame);
-            _container.RegisterInstance(typeof(INavigationService), "contentFrame", ContentNavService);
+            _frame.ContentNavService(frame);
         }
 
         public void TitleClick(ItemClickEventArgs e)
