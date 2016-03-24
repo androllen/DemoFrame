@@ -7,7 +7,7 @@ using Caliburn.Micro;
 using DemoFrame.model;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Core;
+using WeYa.Core.Extends;
 
 namespace DemoFrame.ViewModels
 {
@@ -18,7 +18,7 @@ namespace DemoFrame.ViewModels
             new NavLink() { Label = "People", Symbol = Windows.UI.Xaml.Controls.Symbol.People  ,PageItem="DemoFrame.View.MoreInfoPage"},
             new NavLink() { Label = "Globe", Symbol = Windows.UI.Xaml.Controls.Symbol.Globe ,PageItem="DemoFrame.View.MyFriendPage"},
             new NavLink() { Label = "Message", Symbol = Windows.UI.Xaml.Controls.Symbol.Message ,PageItem="DemoFrame.View.MyInfoPage"},
-            //new NavLink() { Label = "Mail", Symbol = Windows.UI.Xaml.Controls.Symbol.Mail ,PageItem="DemoFrame.View.MoreInfoPage"},
+            new NavLink() { Label = "Mail", Symbol = Windows.UI.Xaml.Controls.Symbol.Mail ,PageItem="DemoFrame.View.MoreInfoPage"}
         };
         public ObservableCollection<NavLink> NavLinks
         {
@@ -41,11 +41,44 @@ namespace DemoFrame.ViewModels
             _container = container;
             _frame = frame;
         }
-
+        public void ListViewItemClick(ItemClickEventArgs args)
+        {
+            var categoryInfo = (NavLink)args.ClickedItem;
+            switch (categoryInfo.Label)
+            {
+                case "People":
+                    _frame.MainNavigationService.For<CategoryDetailViewModel>()
+                          .WithParam(vm => vm.Title, categoryInfo.Label)
+                          .Navigate();
+                    break;
+                case "Globe":
+                    {
+                        _frame.MainNavigationService.For<CategoryDetailViewModel>()
+                          .WithParam(vm => vm.Title, categoryInfo.Label)
+                          .Navigate();
+                    }
+                    break;
+                case "Message":
+                    {
+                        _frame.MainNavigationService.For<CategoryDetailViewModel>()
+                          .WithParam(vm => vm.Title, categoryInfo.Label)
+                          .Navigate();
+                    }
+                    break;
+                case "Mail":
+                    {
+                        _frame.MainNavigationService.For<CategoryDetailViewModel>()
+                          .WithParam(vm => vm.Title, categoryInfo.Label)
+                          .Navigate();
+                    }
+                    break;
+            }
+        }
         public void SetupPhoneNavigationService(Frame frame)
         {
             _frame.PhoneFrame(frame);
         }
+
         public void SetupDesktopMainNavigationService(Frame frame)
         {
             _frame.MainFrame(frame);
@@ -59,12 +92,12 @@ namespace DemoFrame.ViewModels
         public void TitleClick(ItemClickEventArgs e)
         {
             NavLink link = e.ClickedItem as NavLink;
-            _frame.CategoryNavService<MainViewModel>();
+            //_frame.MainNavigationService.GoTo<MainViewModel>();
         }
 
         public void onBackKeyPressed()
         {
-          
+
         }
     }
 }

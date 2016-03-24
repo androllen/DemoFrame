@@ -46,6 +46,7 @@
                                 IsItemClickEnabled="True" 
                                 ItemsSource="{Binding NavLinks}"
                                 ItemTemplate="{StaticResource NavLinkItemTemplate}"
+                                cm:Message.Attach="[ItemClick] = [ListViewItemClick($eventArgs)]"
                                 RelativePanel.Below="RectPanel"/>
 
 
@@ -74,7 +75,9 @@
     </TransitionCollection>
     </Grid.ChildrenTransitions>
     <Grid x:Name="MainGrid" Background="Gray"  BorderBrush="Blue" BorderThickness="1">
-        <Frame x:Name="MainFrame" cm:Message.Attach="[Event Loading] = [SetupDesktopMainNavigationService($source)]" DataContext="{x:Null}">
+        <Frame x:Name="MainFrame"
+               cm:Message.Attach="[Event Loading] = [SetupDesktopMainNavigationService($source)]"
+               DataContext="{x:Null}">
             <Frame.ContentTransitions>
                 <TransitionCollection>
                     <NavigationThemeTransition>

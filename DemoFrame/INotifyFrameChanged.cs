@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace DemoFrame
 {
-    public interface INotifyFrameChanged : IFrameMgr
+    public interface INotifyFrameChanged
     {
         event EventHandler<BackRequestedEventArgs> BackKeyPressing;
         /// <summary>
@@ -20,6 +20,10 @@ namespace DemoFrame
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         void CategoryNavService<T>();
+
+        INavigationService MainNavigationService { get; }
+        INavigationService ContentNavigationService { get; }
+        INavigationService PhoneNavigationService { get; }
 
         INavigationService MainFrame(Frame frame);
         INavigationService ContentFrame(Frame frame);

@@ -11,14 +11,12 @@ namespace DemoFrame
 {
     public class PhoneFrameMgr : BaseFrame
     {
-        private readonly IFrameMgr _framemgr;
-        public PhoneFrameMgr(WinRTContainer container, IFrameMgr framemgr)
+        public PhoneFrameMgr(WinRTContainer container)
             : base(container)
         {
-            _framemgr = framemgr;
             SystemNavigationManager.GetForCurrentView().BackRequested += FrameManager_BackRequested;
-
         }
+
         private void FrameManager_BackRequested(object sender, BackRequestedEventArgs e)
         {
             OnBackKeyPressing(e);
@@ -81,8 +79,8 @@ namespace DemoFrame
 
         public override void CategoryNavService<T>()
         {
-            Type t = typeof(T);
-
+            //MainNavigationService.Navigate(typeof(T));
+            MainNavigationService.Navigate<T>();
         }
     }
 }
