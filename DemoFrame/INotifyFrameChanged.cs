@@ -9,23 +9,20 @@ using Windows.UI.Xaml.Controls;
 
 namespace DemoFrame
 {
-    public interface INotifyFrameChanged
+    public interface INotifyFrameChanged : IFrameMgr
     {
-        /// <summary>
-        ///  当注册页面启动的时候发起
-        /// </summary>
-        event EventHandler<bool> NotifyLeftFramePage;
-        /// <summary>
-        /// 当注册页面结束的时候发起
-        /// </summary>
-        event EventHandler NotifyRightFramePage;
-
         event EventHandler<BackRequestedEventArgs> BackKeyPressing;
+        /// <summary>
+        /// 处理分类信息
+        /// 1.导航
+        /// 2.清除所有的frame
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        void CategoryNavService<T>();
 
-        INavigationService MainNavService(Frame frame);
-
-        INavigationService ContentNavService(Frame frame);
-
-        INavigationService RootNavService(Frame frame);
+        INavigationService MainFrame(Frame frame);
+        INavigationService ContentFrame(Frame frame);
+        INavigationService PhoneFrame(Frame frame);
     }
 }

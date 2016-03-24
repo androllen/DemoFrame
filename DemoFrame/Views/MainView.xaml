@@ -22,7 +22,7 @@
     <!---->
     <Grid x:Name="myPanel" SizeChanged="headerRoot_SizeChanged">
         <Frame x:Name="newFrame" Visibility="Collapsed" 
-               cm:Message.Attach="[Event Loading] = [SetupPhoneFrameNavigationService($source)]" DataContext="{x:Null}">
+               cm:Message.Attach="[Event Loading] = [SetupPhoneNavigationService($source)]" DataContext="{x:Null}">
             <TextBlock Text="111" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Frame>
         <SplitView x:Name="splitView"  PaneBackground="#FF2B2B2B"
@@ -73,8 +73,8 @@
                         <EntranceThemeTransition/>
     </TransitionCollection>
     </Grid.ChildrenTransitions>
-    <Grid x:Name="RootGrid" Background="Gray"  BorderBrush="Blue" BorderThickness="1">
-        <Frame x:Name="RootFrame" cm:Message.Attach="[Event Loading] = [SetupDesktopRootNavigationService($source)]" DataContext="{x:Null}">
+    <Grid x:Name="MainGrid" Background="Gray"  BorderBrush="Blue" BorderThickness="1">
+        <Frame x:Name="MainFrame" cm:Message.Attach="[Event Loading] = [SetupDesktopMainNavigationService($source)]" DataContext="{x:Null}">
             <Frame.ContentTransitions>
                 <TransitionCollection>
                     <NavigationThemeTransition>
@@ -87,7 +87,7 @@
         </Frame>
     </Grid>
     <Grid Name="ContentGrid" Grid.Column="1"  BorderBrush="Green" BorderThickness="1">
-        <Frame x:Name="RootContentFrame" cm:Message.Attach="[Event Loading] = [SetupDesktopContentNavigationService($source)]" DataContext="{x:Null}">
+        <Frame x:Name="ContentFrame" cm:Message.Attach="[Event Loading] = [SetupDesktopContentNavigationService($source)]" DataContext="{x:Null}">
             <Frame.ContentTransitions>
                 <TransitionCollection>
                     <NavigationThemeTransition>

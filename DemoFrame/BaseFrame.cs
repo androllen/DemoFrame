@@ -12,139 +12,45 @@ namespace DemoFrame
 {
     public abstract class BaseFrame : INotifyFrameChanged
     {
+        public event EventHandler<BackRequestedEventArgs> BackKeyPressing;
+        public INavigationService MainNavigationService { get; private set; }
+        public INavigationService ContentNavigationService { get; private set; }
+        public INavigationService PhoneNavigationService { get; private set; }
+
+        public abstract void OnBackKeyPressed();
+        public abstract void CategoryNavService<T>();
+
+        protected abstract void OnDesktopContentGoBack();
+        protected abstract void OnDesktopMainGoBack();
+        protected abstract void OnPhoneGoBack();
+
         protected readonly WinRTContainer _container;
+
         public BaseFrame(WinRTContainer container)
         {
             _container = container;
         }
 
-        public abstract void onBackKeyPressed();
-        public event EventHandler<BackRequestedEventArgs> BackKeyPressing;
-        public event EventHandler<bool> NotifyLeftFramePage;
-        public event EventHandler NotifyRightFramePage;
-
-
-        public INavigationService ContentNavService(Frame frame)
+        public INavigationService ContentFrame(Frame frame)
         {
-            return _container.RegisterNavigationService(frame);
+            ContentNavigationService = _container.RegisterNavigationService(frame);
+            return ContentNavigationService;
+        }
+        public INavigationService MainFrame(Frame frame)
+        {
+            MainNavigationService = _container.RegisterNavigationService(frame);
+            return MainNavigationService;
+        }
+        public INavigationService PhoneFrame(Frame frame)
+        {
+            PhoneNavigationService = _container.RegisterNavigationService(frame);
+            return PhoneNavigationService;
         }
 
-        public INavigationService MainNavService(Frame frame)
+        protected virtual void OnBackKeyPressing(BackRequestedEventArgs args)
         {
-            return _container.RegisterNavigationService(frame);
+            BackKeyPressing?.Invoke(this, args);
         }
-
-        public INavigationService RootNavService(Frame frame)
-        {
-            return _container.RegisterNavigationService(frame);
-        }
-
-        //protected BaseFrame mCurrentFragment;
-        //private bool mCloseWarned = false;
-
-        //protected bool processBackPressed()
-        //{
-        //    return false;
-        //}
-
-        //public void onBackPressed()
-        //{
-        //    if (processBackPressed())
-        //    {
-        //        return;
-        //    }
-
-        //    bool enableBackPressed = true;
-        //    if (this.mCurrentFragment != null)
-        //        enableBackPressed = !(this.mCurrentFragment.processBackPressed);
-
-        //    if (enableBackPressed)
-        //    {
-        //        int cnt = this.mCurrentFragment.BackStack.Count;
-
-        //        if ((cnt <= 1) && ((Window.Current.Content as Frame).BackStack.Any()))
-        //        {
-        //            String closeWarningHint = getCloseWarning();
-        //            if ((!(this.mCloseWarned)) && (!(string.IsNullOrEmpty(closeWarningHint))))
-        //            {
-        //                this.mCloseWarned = true;
-
-        //                //Toast toast = Toast.makeText(this, closeWarningHint, Toast.LENGTH_SHORT);
-        //                //toast.show();
-        //                //handler.postDelayed(closeApp, 2000);
-        //            }
-        //            else
-        //            {
-        //                //handler.removeCallbacks(closeApp);
-        //                doReturnBack();
-        //            }
-        //        }
-        //        else
-        //        {
-        //            this.mCloseWarned = false;
-        //            doReturnBack();
-        //        }
-        //    }
-        //}
-
-        //private void doReturnBack()
-        //{
-        //    int count = this.mCurrentFragment.BackStack.Count;
-        //    if (count <= 0)
-        //        App.Current.Exit();
-        //    else
-        //    {
-        //        if (mCurrentFragment.CanGoBack)
-        //            this.mCurrentFragment.GoBack();
-        //    }
-        //}
-
-        //public void goToFragment(BaseFrame cls, Object data)
-        //{
-        //    if (cls == null)
-        //    {
-        //        return;
-        //    }
-        //    BaseFrame rootFrame = Window.Current.Content as BaseFrame;
-
-        //    //CubeFragment fragment = (CubeFragment)getSupportFragmentManager().findFragmentByTag(cls.toString());
-        //    if (rootFrame != null)
-        //    {
-        //        mCurrentFragment = rootFrame;
-        //    }
-        //    // !null 0保留自己 移除 当前导航的所有栈 除了自己
-        //    //getSupportFragmentManager().popBackStackImmediate(cls.toString(), 0);
-        //    while (rootFrame.BackStackDepth >= 1)
-        //    {
-        //        rootFrame.BackStack.RemoveAt(rootFrame.BackStackDepth - 1);
-        //    }
-        //}
-
-
-        //public void popTopFragment()
-        //{
-        //    Frame rootFrame = Window.Current.Content as Frame;
-        //    rootFrame.BackStack.RemoveAt(Frame.BackStackDepth - 1);
-        //}
-
-        //public void popToRoot(Type data)
-        //{
-        //    BaseFrame rootFrame = Window.Current.Content as BaseFrame;
-        //    rootFrame.Navigate(data);
-        //    rootFrame.BackStack.Clear();
-        //}
-
-        //private bool tryToUpdateCurrentAfterPop()
-        //{
-        //    BaseFrame fm = Window.Current.Content as BaseFrame;
-        //    int cnt = fm.BackStack.Count();
-        //    if (cnt > 0)
-        //    {
-        //        PageStackEntry rootFrame = fm.BackStack.LastOrDefault();
-        //        return true;
-        //    }
-        //    return false;
-        //}
 
     }
 }

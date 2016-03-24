@@ -42,23 +42,24 @@ namespace DemoFrame.ViewModels
             _frame = frame;
         }
 
-        public void SetupPhoneFrameNavigationService(Frame frame)
+        public void SetupPhoneNavigationService(Frame frame)
         {
-            _frame.MainNavService(frame);
+            _frame.PhoneFrame(frame);
         }
-        public void SetupDesktopRootNavigationService(Frame frame)
+        public void SetupDesktopMainNavigationService(Frame frame)
         {
-            _frame.RootNavService(frame);
+            _frame.MainFrame(frame);
+            //_frame.MainNavigationService.For<MainViewModel>().Navigate();
         }
         public void SetupDesktopContentNavigationService(Frame frame)
         {
-            _frame.ContentNavService(frame);
+            _frame.ContentFrame(frame);
         }
 
         public void TitleClick(ItemClickEventArgs e)
         {
             NavLink link = e.ClickedItem as NavLink;
-
+            _frame.CategoryNavService<MainViewModel>();
         }
 
         public void onBackKeyPressed()
