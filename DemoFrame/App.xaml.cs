@@ -23,8 +23,9 @@ namespace DemoFrame
             base.Configure();
             
             _container.PerRequest<MainViewModel>()
-                .PerRequest<CategoryDetailViewModel>()
-                            .PerRequest<ShellViewModel>();
+                .PerRequest<InitMainViewModel>()
+                .PerRequest<InitContentViewModel>()
+                .PerRequest<ShellViewModel>();
 
             _container.RegisterSingleton(typeof(INotifyFrameChanged), string.Empty, typeof(PhoneFrameMgr));
 

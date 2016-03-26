@@ -47,27 +47,27 @@ namespace DemoFrame.ViewModels
             switch (categoryInfo.Label)
             {
                 case "People":
-                    _frame.MainNavigationService.For<CategoryDetailViewModel>()
+                    _frame.MainNavigationService.For<InitMainViewModel>()
                           .WithParam(vm => vm.Title, categoryInfo.Label)
                           .Navigate();
                     break;
                 case "Globe":
                     {
-                        _frame.MainNavigationService.For<CategoryDetailViewModel>()
+                        _frame.MainNavigationService.For<InitContentViewModel>()
                           .WithParam(vm => vm.Title, categoryInfo.Label)
                           .Navigate();
                     }
                     break;
                 case "Message":
                     {
-                        _frame.MainNavigationService.For<CategoryDetailViewModel>()
+                        _frame.MainNavigationService.For<InitMainViewModel>()
                           .WithParam(vm => vm.Title, categoryInfo.Label)
                           .Navigate();
                     }
                     break;
                 case "Mail":
                     {
-                        _frame.MainNavigationService.For<CategoryDetailViewModel>()
+                        _frame.MainNavigationService.For<InitMainViewModel>()
                           .WithParam(vm => vm.Title, categoryInfo.Label)
                           .Navigate();
                     }
