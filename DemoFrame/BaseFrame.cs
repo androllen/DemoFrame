@@ -34,16 +34,21 @@ namespace DemoFrame
         public INavigationService ContentFrame(Frame frame)
         {
             ContentNavigationService = _container.RegisterNavigationService(frame);
+            ContentNavigationService.Navigated += (s, e) => OnDesktopContentGoBack();
             return ContentNavigationService;
         }
         public INavigationService MainFrame(Frame frame)
         {
             MainNavigationService = _container.RegisterNavigationService(frame);
+            MainNavigationService.Navigated += (s, e) => OnDesktopMainGoBack();
+
             return MainNavigationService;
         }
         public INavigationService PhoneFrame(Frame frame)
         {
             PhoneNavigationService = _container.RegisterNavigationService(frame);
+            PhoneNavigationService.Navigated += (s, e) => OnPhoneGoBack();
+
             return PhoneNavigationService;
         }
 

@@ -11,10 +11,29 @@ namespace DemoFrame
 {
     public class PhoneFrameMgr : BaseFrame
     {
+        SystemNavigationManager systemNavigationManager;
+
         public PhoneFrameMgr(WinRTContainer container)
             : base(container)
         {
-            SystemNavigationManager.GetForCurrentView().BackRequested += FrameManager_BackRequested;
+            this.systemNavigationManager = SystemNavigationManager.GetForCurrentView();
+            systemNavigationManager.BackRequested += FrameManager_BackRequested;
+        }
+
+        private void UpdateMainBackButton()
+        {
+            systemNavigationManager.AppViewBackButtonVisibility =
+                this.MainNavigationService.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+        }
+        private void UpdateContentBackButton()
+        {
+            systemNavigationManager.AppViewBackButtonVisibility =
+                this.ContentNavigationService.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+        }
+        private void UpdatePhoneBackButton()
+        {
+            systemNavigationManager.AppViewBackButtonVisibility =
+                this.PhoneNavigationService.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
 
         private void FrameManager_BackRequested(object sender, BackRequestedEventArgs e)
@@ -33,21 +52,29 @@ namespace DemoFrame
             {
                 ContentNavigationService.GoBack();
             }
+            systemNavigationManager.AppViewBackButtonVisibility = ContentNavigationService.CanGoBack
+                ? AppViewBackButtonVisibility.Visible
+                : AppViewBackButtonVisibility.Collapsed;
         }
         protected override void OnDesktopMainGoBack()
         {
             if (MainNavigationService.CanGoBack)
             {
                 MainNavigationService.GoBack();
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = MainNavigationService.CanGoBack
-                    ? AppViewBackButtonVisibility.Visible
-                    : AppViewBackButtonVisibility.Collapsed;
-
             }
+            systemNavigationManager.AppViewBackButtonVisibility = MainNavigationService.CanGoBack
+                ? AppViewBackButtonVisibility.Visible
+                : AppViewBackButtonVisibility.Collapsed;
         }
         protected override void OnPhoneGoBack()
         {
-
+            if (PhoneNavigationService.CanGoBack)
+            {
+                PhoneNavigationService.GoBack();
+            }
+            systemNavigationManager.AppViewBackButtonVisibility = PhoneNavigationService.CanGoBack
+                ? AppViewBackButtonVisibility.Visible
+                : AppViewBackButtonVisibility.Collapsed;
         }
 
         public override void OnBackKeyPressed()
@@ -63,9 +90,6 @@ namespace DemoFrame
                     if (ContentNavigationService.CanGoBack&& MainNavigationService.CanGoBack)
                     {
                         OnDesktopContentGoBack();
-
-                        SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = 
-                            AppViewBackButtonVisibility.Visible;
                     }
                     else
                     {
