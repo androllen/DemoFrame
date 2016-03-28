@@ -32,8 +32,11 @@ namespace DemoFrame
         INavigationService ContentNavigationService { get; }
         INavigationService PhoneNavigationService { get; }
 
-        INavigationService MainFrame(Frame frame);
-        INavigationService ContentFrame(Frame frame);
-        INavigationService PhoneFrame(Frame frame);
+        //void MainFrame(Frame frame);
+        //void ContentFrame(Frame frame);
+        void PhoneFrame(Frame frame);
+
+        Frame MainFrame { get; set; }
+        Frame ContentFrame { get; set; }
     }
 }

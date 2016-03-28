@@ -40,7 +40,6 @@
                         <Rectangle x:Name="RectPanel" Width="140" Height="48" Fill="BlanchedAlmond"
                                         RelativePanel.AlignLeftWithPanel="True" 
                                         RelativePanel.AlignTopWithPanel="True"/>
-
                         <ListView x:Name="NavLinksList" Width="140"
                                 SelectionMode="Single" 
                                 IsItemClickEnabled="True" 
@@ -48,14 +47,11 @@
                                 ItemTemplate="{StaticResource NavLinkItemTemplate}"
                                 cm:Message.Attach="[ItemClick] = [ListViewItemClick($eventArgs)]"
                                 RelativePanel.Below="RectPanel"/>
-
-
                         <Button x:Name="splitViewToggle" Style="{StaticResource SplitViewTogglePaneButtonStyle}" 
                                         Background="BlanchedAlmond" Click="splitViewToggle_Click" 
                                         RelativePanel.AlignLeftWithPanel="True" 
                                         RelativePanel.AlignTopWithPanel="True"/>
                     </RelativePanel>
-
                     <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="140"
                                         Orientation="Horizontal" Margin="14,12,0,12" Grid.Row="1">
                         <SymbolIcon Symbol="Setting" />
@@ -72,38 +68,40 @@
                 <Grid.ChildrenTransitions>
                     <TransitionCollection>
                         <EntranceThemeTransition/>
-    </TransitionCollection>
-    </Grid.ChildrenTransitions>
-    <Grid x:Name="MainGrid" Background="Gray"  BorderBrush="Blue" BorderThickness="1">
-        <Frame x:Name="MainFrame"
-               cm:Message.Attach="[Event Loading] = [SetupDesktopMainNavigationService($source)]"
-               DataContext="{x:Null}">
-            <Frame.ContentTransitions>
-                <TransitionCollection>
-                    <NavigationThemeTransition>
-                        <NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                            <EntranceNavigationTransitionInfo />
-                        </NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                    </NavigationThemeTransition>
-                </TransitionCollection>
-            </Frame.ContentTransitions>
-        </Frame>
-    </Grid>
-    <Grid Name="ContentGrid" Grid.Column="1"  BorderBrush="Green" BorderThickness="1">
-        <Frame x:Name="ContentFrame" cm:Message.Attach="[Event Loading] = [SetupDesktopContentNavigationService($source)]" DataContext="{x:Null}">
-            <Frame.ContentTransitions>
-                <TransitionCollection>
-                    <NavigationThemeTransition>
-                        <NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                            <EntranceNavigationTransitionInfo />
-                        </NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                    </NavigationThemeTransition>
-                </TransitionCollection>
-            </Frame.ContentTransitions>
-        </Frame>
-    </Grid>
-    </Grid>
-    </SplitView>
+                    </TransitionCollection>
+                </Grid.ChildrenTransitions>
+                <Grid x:Name="MainGrid" Background="Gray"  BorderBrush="Blue" BorderThickness="1">
+                    <Frame x:Name="MainFrame" CacheSize="4"
+                           cm:Message.Attach="[Event Loading] = [SetupDesktopMainNavigationService($source)]"
+                           DataContext="{x:Null}">
+                        <Frame.ContentTransitions>
+                            <TransitionCollection>
+                                <NavigationThemeTransition>
+                                    <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                        <EntranceNavigationTransitionInfo />
+                                    </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                </NavigationThemeTransition>
+                            </TransitionCollection>
+                        </Frame.ContentTransitions>
+                    </Frame>
+                </Grid>     
+                <Grid Name="ContentGrid" Grid.Column="1"  BorderBrush="Green" BorderThickness="1">
+                    <Frame x:Name="ContentFrame" TabIndex="1"
+                           cm:Message.Attach="[Event Loading] = [SetupDesktopContentNavigationService($source)]"
+                           DataContext="{x:Null}">
+                        <Frame.ContentTransitions>
+                            <TransitionCollection>
+                                <NavigationThemeTransition>
+                                    <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                        <EntranceNavigationTransitionInfo />
+                                    </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                </NavigationThemeTransition>
+                            </TransitionCollection>
+                        </Frame.ContentTransitions>
+                    </Frame>
+                </Grid>
+            </Grid>
+            </SplitView>
     <VisualStateManager.VisualStateGroups>
         <VisualStateGroup>
             <VisualState x:Name="LargeWideLayout">

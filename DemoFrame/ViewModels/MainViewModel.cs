@@ -53,7 +53,7 @@ namespace DemoFrame.ViewModels
                     break;
                 case "Globe":
                     {
-                        _frame.MainNavigationService.For<InitContentViewModel>()
+                        _frame.MainNavigationService.For<InitMainViewModel>()
                           .WithParam(vm => vm.Title, categoryInfo.Label)
                           .Navigate();
                     }
@@ -81,12 +81,13 @@ namespace DemoFrame.ViewModels
 
         public void SetupDesktopMainNavigationService(Frame frame)
         {
-            _frame.MainFrame(frame);
-            //_frame.MainNavigationService.For<MainViewModel>().Navigate();
+            _frame.MainFrame= frame;
+            _frame.MainNavigationService.For<InitMainViewModel>().Navigate();
         }
         public void SetupDesktopContentNavigationService(Frame frame)
         {
-            _frame.ContentFrame(frame);
+            _frame.ContentFrame= frame;
+            _frame.ContentNavigationService.For<InitContentViewModel>().Navigate();
         }
 
         public void TitleClick(ItemClickEventArgs e)

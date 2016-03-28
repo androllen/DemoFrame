@@ -29,7 +29,10 @@ namespace DemoFrame.ViewModels
         }
         public void ShowClickItem()
         {
-            _frame.MainNavigationService.For<AboutViewModel>().Navigate();
+            _frame.ContentNavigationService.For<AboutViewModel>()
+            //_frame.MainNavigationService.For<InitMainViewModel>()
+              .WithParam(vm => vm.Title, "关于")
+              .Navigate();
         }
     }
 }

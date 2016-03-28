@@ -7,6 +7,7 @@ using Caliburn.Micro;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using DemoFrame.ViewModels;
 
 namespace DemoFrame
 {
@@ -30,26 +31,35 @@ namespace DemoFrame
         {
             _container = container;
         }
-
-        public INavigationService ContentFrame(Frame frame)
+        private Frame _mainFrame;
+        public Frame MainFrame
         {
-            ContentNavigationService = _container.RegisterNavigationService(frame);
-            ContentNavigationService.Navigated += (s, e) => OnDesktopContentGoBack();
-            return ContentNavigationService;
+            get { return _mainFrame; }
+            set
+            {
+                MainNavigationService = new FrameAdapter(value);
+                _container.RegisterInstance(typeof(INavigationService), "MainFrame", MainNavigationService);
+                MainNavigationService.Navigated += (s, e) => OnDesktopMainGoBack();
+                _mainFrame = value;
+            }
         }
-        public INavigationService MainFrame(Frame frame)
+        private Frame _contentFrame;
+        public Frame ContentFrame
         {
-            MainNavigationService = _container.RegisterNavigationService(frame);
-            MainNavigationService.Navigated += (s, e) => OnDesktopMainGoBack();
-
-            return MainNavigationService;
+            get { return _contentFrame; }
+            set
+            {
+                ContentNavigationService = new FrameAdapter(value);
+                _container.RegisterInstance(typeof(INavigationService), "ContentFrame", ContentNavigationService);
+                _contentFrame = value;
+                ContentNavigationService.Navigated += (s, e) => OnDesktopContentGoBack();
+            }
         }
-        public INavigationService PhoneFrame(Frame frame)
+
+        public void PhoneFrame(Frame frame)
         {
             PhoneNavigationService = _container.RegisterNavigationService(frame);
             PhoneNavigationService.Navigated += (s, e) => OnPhoneGoBack();
-
-            return PhoneNavigationService;
         }
 
         protected virtual void OnBackKeyPressing(BackRequestedEventArgs args)

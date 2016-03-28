@@ -5,11 +5,17 @@
     xmlns:local="using:DemoFrame.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:cpt="using:CCUWPToolkit.Controls"
+    xmlns:cm="using:Caliburn.Micro"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="{Binding Title}" HorizontalAlignment="Center"
-                   VerticalAlignment="Top" FontSize="30" Foreground="Black"/>
-        <Rectangle Fill="AliceBlue" Width="300" Height="80"/>
+        <RelativePanel  HorizontalAlignment="Center"
+                   VerticalAlignment="Center" >
+            <TextBlock Text="{Binding Title}" FontSize="30" Foreground="Black" x:Name="demoblock"/>
+            <cpt:ButtonImage ButtonHeight="40" ButtonWidth="130" RelativePanel.Below="demoblock" 
+                             NormalStateColors="Yellow" Label="点我" 
+                             cm:Message.Attach="[Event Click] = [Action ShowClickItem]"/>
+        </RelativePanel>
     </Grid>
 </Page>

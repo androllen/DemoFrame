@@ -26,6 +26,12 @@ namespace DemoFrame.ViewModels
             : base(frame)
         {
         }
-
+        public void ShowClickItem()
+        {
+            //_frame.ContentNavigationService.For<AboutViewModel>().Navigate();
+            //_frame.MainNavigationService.For<InitMainViewModel>()
+            //  .WithParam(vm => vm.Title, categoryInfo.Label)
+            //  .Navigate();
+        }
     }
 }
