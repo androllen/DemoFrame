@@ -25,6 +25,19 @@ namespace DemoFrame
         protected abstract void OnDesktopMainGoBack();
         protected abstract void OnPhoneGoBack();
 
+        protected virtual void UpdateMainBackButton()
+        {
+
+        }
+        protected virtual void UpdateContentBackButton()
+        {
+
+        }
+        protected virtual void UpdatePhoneBackButton()
+        {
+
+        }
+
         protected readonly WinRTContainer _container;
 
         public BaseFrame(WinRTContainer container)
@@ -39,7 +52,7 @@ namespace DemoFrame
             {
                 MainNavigationService = new FrameAdapter(value);
                 _container.RegisterInstance(typeof(INavigationService), "MainFrame", MainNavigationService);
-                MainNavigationService.Navigated += (s, e) => OnDesktopMainGoBack();
+                MainNavigationService.Navigated += (s, e) => UpdateMainBackButton();
                 _mainFrame = value;
             }
         }
@@ -52,14 +65,14 @@ namespace DemoFrame
                 ContentNavigationService = new FrameAdapter(value);
                 _container.RegisterInstance(typeof(INavigationService), "ContentFrame", ContentNavigationService);
                 _contentFrame = value;
-                ContentNavigationService.Navigated += (s, e) => OnDesktopContentGoBack();
+                ContentNavigationService.Navigated += (s, e) => UpdateContentBackButton();
             }
         }
 
         public void PhoneFrame(Frame frame)
         {
             PhoneNavigationService = _container.RegisterNavigationService(frame);
-            PhoneNavigationService.Navigated += (s, e) => OnPhoneGoBack();
+            PhoneNavigationService.Navigated += (s, e) => UpdatePhoneBackButton();
         }
 
         protected virtual void OnBackKeyPressing(BackRequestedEventArgs args)

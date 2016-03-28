@@ -1,7 +1,7 @@
 ﻿using Caliburn.Micro;
 using DemoFrame.ViewModels;
+using WeYa.Tools;
 using Windows.ApplicationModel.Activation;
-using Windows.UI.Xaml;
 
 namespace DemoFrame
 {
@@ -25,6 +25,7 @@ namespace DemoFrame
             _container.PerRequest<MainViewModel>()
                 .PerRequest<InitMainViewModel>()
                 .PerRequest<InitContentViewModel>()
+                .PerRequest<ContentViewModel>()
                 .PerRequest<ShellViewModel>();
 
             _container.RegisterSingleton(typeof(INotifyFrameChanged), string.Empty, typeof(PhoneFrameMgr));

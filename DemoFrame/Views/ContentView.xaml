@@ -1,15 +1,13 @@
 ﻿<Page
-    x:Class="DemoFrame.Views.InitContentView"
+    x:Class="DemoFrame.Views.ContentView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:DemoFrame.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:cpt="using:CCUWPToolkit.Controls"
-    xmlns:cm="using:Caliburn.Micro"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Ellipse Fill="Gold" Width="100" Height="100"/>
+        <Rectangle Fill="Blue" Width="200" Height="40"/>
     </Grid>
 </Page>

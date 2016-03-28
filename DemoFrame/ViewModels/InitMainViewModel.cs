@@ -18,7 +18,7 @@ namespace DemoFrame.ViewModels
                 if (_title != value)
                 {
                     _title = value;
-                    NotifyOfPropertyChange(nameof(Title));
+                    NotifyOfPropertyChange(()=> Title);
                 }
             }
         }
@@ -27,12 +27,13 @@ namespace DemoFrame.ViewModels
             : base(frame)
         {
         }
+
         public void ShowClickItem()
         {
-            _frame.ContentNavigationService.For<AboutViewModel>()
-            //_frame.MainNavigationService.For<InitMainViewModel>()
+            _frame.ContentNavigationService.For<ShellViewModel>()
               .WithParam(vm => vm.Title, "关于")
               .Navigate();
+
         }
     }
 }

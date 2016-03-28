@@ -20,22 +20,6 @@ namespace DemoFrame
             systemNavigationManager.BackRequested += FrameManager_BackRequested;
         }
 
-        private void UpdateMainBackButton()
-        {
-            systemNavigationManager.AppViewBackButtonVisibility =
-                this.MainNavigationService.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
-        }
-        private void UpdateContentBackButton()
-        {
-            systemNavigationManager.AppViewBackButtonVisibility =
-                this.ContentNavigationService.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
-        }
-        private void UpdatePhoneBackButton()
-        {
-            systemNavigationManager.AppViewBackButtonVisibility =
-                this.PhoneNavigationService.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
-        }
-
         private void FrameManager_BackRequested(object sender, BackRequestedEventArgs e)
         {
             OnBackKeyPressing(e);
@@ -46,6 +30,29 @@ namespace DemoFrame
 
             e.Handled = true;
         }
+
+        protected override void UpdateMainBackButton()
+        {
+            systemNavigationManager.AppViewBackButtonVisibility =
+                this.MainNavigationService.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+        }
+
+        protected override void UpdateContentBackButton()
+        {
+            int bs_Count = this.ContentNavigationService.BackStack.Count;
+            int fs_Count= this.ContentNavigationService.ForwardStack.Count;
+
+            systemNavigationManager.AppViewBackButtonVisibility =
+                this.ContentNavigationService.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+        }
+
+        protected override void UpdatePhoneBackButton()
+        {
+            systemNavigationManager.AppViewBackButtonVisibility =
+                this.PhoneNavigationService.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+        }
+
+
         protected override void OnDesktopContentGoBack()
         {
             if (ContentNavigationService.CanGoBack)
@@ -55,6 +62,7 @@ namespace DemoFrame
             systemNavigationManager.AppViewBackButtonVisibility = ContentNavigationService.CanGoBack
                 ? AppViewBackButtonVisibility.Visible
                 : AppViewBackButtonVisibility.Collapsed;
+
         }
         protected override void OnDesktopMainGoBack()
         {
@@ -87,7 +95,7 @@ namespace DemoFrame
             {
                 if (MainNavigationService != null && ContentNavigationService != null)
                 {
-                    if (ContentNavigationService.CanGoBack&& MainNavigationService.CanGoBack)
+                    if (ContentNavigationService.CanGoBack)
                     {
                         OnDesktopContentGoBack();
                     }

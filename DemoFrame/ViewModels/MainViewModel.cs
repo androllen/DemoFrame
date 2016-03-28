@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using DemoFrame.model;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 using WeYa.Core.Extends;
+using WeYa.Domain;
 
 namespace DemoFrame.ViewModels
 {
@@ -15,10 +15,11 @@ namespace DemoFrame.ViewModels
     {
         private ObservableCollection<NavLink> _navLinks = new ObservableCollection<NavLink>()
         {
-            new NavLink() { Label = "People", Symbol = Windows.UI.Xaml.Controls.Symbol.People  ,PageItem="DemoFrame.View.MoreInfoPage"},
-            new NavLink() { Label = "Globe", Symbol = Windows.UI.Xaml.Controls.Symbol.Globe ,PageItem="DemoFrame.View.MyFriendPage"},
-            new NavLink() { Label = "Message", Symbol = Windows.UI.Xaml.Controls.Symbol.Message ,PageItem="DemoFrame.View.MyInfoPage"},
-            new NavLink() { Label = "Mail", Symbol = Windows.UI.Xaml.Controls.Symbol.Mail ,PageItem="DemoFrame.View.MoreInfoPage"}
+            new NavLink() { Label = "首页", Symbol = Symbol.People},
+            new NavLink() { Label = "收藏", Symbol = Symbol.Globe},
+            new NavLink() { Label = "下载", Symbol = Symbol.Message},
+            new NavLink() { Label = "关于", Symbol = Symbol.Delete },
+            new NavLink() { Label = "设置", Symbol = Symbol.Mail }
         };
         public ObservableCollection<NavLink> NavLinks
         {
@@ -46,28 +47,35 @@ namespace DemoFrame.ViewModels
             var categoryInfo = (NavLink)args.ClickedItem;
             switch (categoryInfo.Label)
             {
-                case "People":
-                    _frame.MainNavigationService.For<InitMainViewModel>()
+                case "首页":
+                    _frame.MainNavigationService.For<CategoryDetailViewModel>()
                           .WithParam(vm => vm.Title, categoryInfo.Label)
                           .Navigate();
                     break;
-                case "Globe":
+                case "收藏":
                     {
-                        _frame.MainNavigationService.For<InitMainViewModel>()
-                          .WithParam(vm => vm.Title, categoryInfo.Label)
-                          .Navigate();
-                    }
-                    break;
-                case "Message":
-                    {
-                        _frame.MainNavigationService.For<InitMainViewModel>()
+                        _frame.MainNavigationService.For<CollectViewModel>()
                           .WithParam(vm => vm.Title, categoryInfo.Label)
                           .Navigate();
                     }
                     break;
-                case "Mail":
+                case "下载":
                     {
-                        _frame.MainNavigationService.For<InitMainViewModel>()
+                        _frame.MainNavigationService.For<DownloadViewModel>()
+                          .WithParam(vm => vm.Title, categoryInfo.Label)
+                          .Navigate();
+                    }
+                    break;
+                case "关于":
+                    {
+                        _frame.MainNavigationService.For<AboutViewModel>()
+                          .WithParam(vm => vm.Title, categoryInfo.Label)
+                          .Navigate();
+                    }
+                    break;
+                case "设置":
+                    {
+                        _frame.MainNavigationService.For<SettingViewModel>()
                           .WithParam(vm => vm.Title, categoryInfo.Label)
                           .Navigate();
                     }

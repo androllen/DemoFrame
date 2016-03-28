@@ -8,36 +8,16 @@ using Windows.UI.Xaml.Controls;
 
 namespace DemoFrame.ViewModels
 {
-    public class ShellViewModel : Screen
+    public class ShellViewModel : BaseViewModel
     {
-        private readonly INavigationService _navigationService;
-
-        public ShellViewModel(INavigationService container)
+        public ShellViewModel(INotifyFrameChanged frame) 
+            : base(frame)
         {
-            _navigationService = container;
-        }
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-        }
-        protected override void OnActivate()
-        {
-            base.OnActivate();
-        }
-        protected override void OnDeactivate(bool close)
-        {
-            base.OnDeactivate(true);
-        }
-
-        public void SetupNavigationService(Frame frame)
-        {
-            //_navigationService = _container.RegisterNavigationService(frame);
-
         }
 
         public void ShowDevices()
         {
-            _navigationService.For<MainViewModel>().Navigate();
+            _frame.ContentNavigationService.For<ContentViewModel>().Navigate();
         }
 
     }

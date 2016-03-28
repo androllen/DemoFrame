@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace DemoFrame
+namespace WeYa.Tools
 {
     public class Settings
     {
@@ -133,7 +133,7 @@ namespace DemoFrame
             composite[KEY_F_STATIC_AGE] = channel;
             composite[KEY_F_STATIC_AGE] = verName;
             composite[KEY_F_STATIC_PKGNAME] = verCode;
-            
+
             myDataContainer.Values[key] = composite;
         }
     }

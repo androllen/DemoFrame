@@ -1,33 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using Windows.UI.Xaml.Controls;
 
-namespace DemoFrame.model
+namespace WeYa.Domain
 {
-    public class NavLink : BaseModel
-    {
-        private string label;
-        public string Label
-        {
-            get { return label; }
-            set { SetProperty(ref label, value); }
-        }
-
-
-        private Symbol sysbol;
-        public Symbol Symbol
-        {
-            get { return sysbol; }
-            set { SetProperty(ref sysbol, value); }
-        }
-        private string page;
-        public string PageItem
-        {
-            get { return page; }
-            set { SetProperty(ref page, value); }
-        }
-    }
     public class BaseModel : INotifyPropertyChanged
     {
         private string items;

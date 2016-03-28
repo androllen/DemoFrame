@@ -6,7 +6,7 @@
     xmlns:vm="using:DemoFrame.ViewModels"
     xmlns:cm="using:Caliburn.Micro"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:model="using:DemoFrame.model"
+    xmlns:model="using:WeYa.Domain"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
@@ -22,7 +22,7 @@
     <!---->
     <Grid x:Name="myPanel" SizeChanged="headerRoot_SizeChanged">
         <Frame x:Name="newFrame" Visibility="Collapsed" 
-               cm:Message.Attach="[Event Loading] = [SetupPhoneNavigationService($source)]" DataContext="{x:Null}">
+               cm:Message.Attach="[Event Loading] = [SetupPhoneNavigationService($source)]">
             <TextBlock Text="111" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Frame>
         <SplitView x:Name="splitView"  PaneBackground="#FF2B2B2B"
