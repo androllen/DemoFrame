@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Caliburn.Micro;
 
 namespace DemoFrame.ViewModels
 {
@@ -25,7 +26,10 @@ namespace DemoFrame.ViewModels
         public InitMainViewModel(INotifyFrameChanged frame)
             : base(frame)
         {
-
+        }
+        public void ShowClickItem()
+        {
+            _frame.MainNavigationService.For<AboutViewModel>().Navigate();
         }
     }
 }

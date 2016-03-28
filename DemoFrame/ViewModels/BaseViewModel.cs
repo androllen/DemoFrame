@@ -14,6 +14,7 @@ namespace DemoFrame.ViewModels
         public BaseViewModel(INotifyFrameChanged frame)
         {
             _frame = frame;
+
         }
 
     }
