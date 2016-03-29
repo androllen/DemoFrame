@@ -85,16 +85,18 @@ namespace DemoFrame.ViewModels
                     break;
                 case "关于":
                     {
-                        _frame.MainNavigationService.For<AboutViewModel>()
-                          .WithParam(vm => vm.Title, categoryInfo.Label)
-                          .Navigate();
+                        _frame.ClearPivotItemView(mainService =>
+                        {
+                            mainService.For<AboutViewModel>().WithParam(vm => vm.Title, categoryInfo.Label).Navigate();
+                        }, 3);
                     }
                     break;
                 case "设置":
                     {
-                        _frame.MainNavigationService.For<SettingViewModel>()
-                          .WithParam(vm => vm.Title, categoryInfo.Label)
-                          .Navigate();
+                        _frame.ClearPivotItemView(mainService =>
+                        {
+                            mainService.For<SettingViewModel>().WithParam(vm => vm.Title, categoryInfo.Label).Navigate();
+                        }, 4);
                     }
                     break;
             }

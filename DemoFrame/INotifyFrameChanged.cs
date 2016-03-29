@@ -27,15 +27,13 @@ namespace DemoFrame
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        void CategoryNavService<T>();
+        void ClearPivotItemView(Action<INavigationService> action, int Index);
+        void Go2ContentView(Action<INavigationService> action);
 
         INavigationService MainNavigationService { get; }
         INavigationService ContentNavigationService { get; }
         INavigationService PhoneNavigationService { get; }
 
-        void ClearAllContentView(Action<INavigationService> action);
-        void ClearPivotItemView(Action<INavigationService> action, int Index);
-        void Go2ContentView(Action<INavigationService> action);
 
         //void MainFrame(Frame frame);
         //void ContentFrame(Frame frame);

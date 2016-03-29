@@ -21,8 +21,6 @@ namespace DemoFrame
         public INavigationService PhoneNavigationService { get; private set; }
 
         public abstract void OnBackKeyPressed();
-        public abstract void CategoryNavService<T>();
-
         protected abstract void OnDesktopContentGoBack();
         protected abstract void OnDesktopMainGoBack();
         protected abstract void OnPhoneGoBack();
@@ -44,7 +42,7 @@ namespace DemoFrame
             get { return _mainFrame; }
             set
             {
-                if(MainNavigationService==null)
+                if (MainNavigationService == null)
                 {
                     MainNavigationService = new FrameAdapter(value);
                     _container.RegisterInstance(typeof(INavigationService), "MainFrame", MainNavigationService);
@@ -83,15 +81,7 @@ namespace DemoFrame
         {
             Back2MainView?.Invoke(this, Index);
         }
-        public void ClearAllContentView(Action<INavigationService> action)
-        {
-            action(MainNavigationService);
-            while (ContentNavigationService.BackStack.Count > 0)
-            {
-                OnDesktopContentGoBack();
-            }
-        }
-        public void ClearPivotItemView(Action<INavigationService> action,int Index)
+        public void ClearPivotItemView(Action<INavigationService> action, int Index)
         {
             action(MainNavigationService);
             while (ContentNavigationService.BackStack.Count > 0)
@@ -102,15 +92,17 @@ namespace DemoFrame
             {
                 MainNavigationService.BackStack.RemoveAt(1);
             }
-            UpdateMainBackButton();
-            OnBack2MainView(Index);
+            if (MainNavigationService.CurrentSourcePageType != MainNavigationService.BackStack.First().SourcePageType)
+                UpdateMainBackButton();
+            else
+                OnDesktopMainGoBack();
 
+            OnBack2MainView(Index);
         }
 
         public void Go2ContentView(Action<INavigationService> action)
         {
             action(ContentNavigationService);
-
             UpdateContentBackButton();
         }
     }

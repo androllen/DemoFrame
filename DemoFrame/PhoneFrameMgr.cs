@@ -105,10 +105,5 @@ namespace DemoFrame
         {
             base.OnBack2MainView(Index);
         }
-        public override void CategoryNavService<T>()
-        {
-            //MainNavigationService.Navigate(typeof(T));
-            MainNavigationService.Navigate<T>();
-        }
     }
 }
