@@ -44,6 +44,7 @@
                                 SelectionMode="Single" 
                                 IsItemClickEnabled="True" 
                                 ItemsSource="{Binding NavLinks}"
+                                SelectedIndex="{Binding SelectedIndex,  Mode=TwoWay}"
                                 ItemTemplate="{StaticResource NavLinkItemTemplate}"
                                 cm:Message.Attach="[ItemClick] = [ListViewItemClick($eventArgs)]"
                                 RelativePanel.Below="RectPanel"/>

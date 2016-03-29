@@ -12,6 +12,7 @@ namespace DemoFrame
     public interface INotifyFrameChanged
     {
         event EventHandler<BackRequestedEventArgs> BackKeyPressing;
+        event EventHandler<int> Back2MainView;
         /// <summary>
         /// 处理分类信息
         /// 1.导航
@@ -31,6 +32,9 @@ namespace DemoFrame
         INavigationService MainNavigationService { get; }
         INavigationService ContentNavigationService { get; }
         INavigationService PhoneNavigationService { get; }
+
+        void ClearAllContentView(Action<INavigationService> action);
+        void ClearPivotItemView(Action<INavigationService> action, int Index);
 
         //void MainFrame(Frame frame);
         //void ContentFrame(Frame frame);

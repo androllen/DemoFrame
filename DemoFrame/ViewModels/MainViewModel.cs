@@ -11,7 +11,7 @@ using WeYa.Domain;
 
 namespace DemoFrame.ViewModels
 {
-    public class MainViewModel : Screen
+    public class MainViewModel : BaseViewModel
     {
         private ObservableCollection<NavLink> _navLinks = new ObservableCollection<NavLink>()
         {
@@ -25,9 +25,20 @@ namespace DemoFrame.ViewModels
         {
             get { return _navLinks; }
         }
-        protected readonly INotifyFrameChanged _frame;
         protected readonly WinRTContainer _container;
-
+        private int _index;
+        public int SelectedIndex
+        {
+            get { return _index; }
+            set
+            {
+                if (_index != value)
+                {
+                    _index = value;
+                    NotifyOfPropertyChange(nameof(SelectedIndex));
+                }
+            }
+        }
         protected override void OnActivate()
         {
             base.OnActivate();
@@ -37,10 +48,11 @@ namespace DemoFrame.ViewModels
             base.OnDeactivate(close);
         }
 
-        public MainViewModel(WinRTContainer container, INotifyFrameChanged frame)
+        public MainViewModel(WinRTContainer container, INotifyFrameChanged frame) 
+            : base(frame)
         {
             _container = container;
-            _frame = frame;
+            SelectedIndex = 0;
         }
         public void ListViewItemClick(ItemClickEventArgs args)
         {
@@ -48,22 +60,27 @@ namespace DemoFrame.ViewModels
             switch (categoryInfo.Label)
             {
                 case "首页":
-                    _frame.MainNavigationService.For<CategoryDetailViewModel>()
-                          .WithParam(vm => vm.Title, categoryInfo.Label)
-                          .Navigate();
+                    {
+                        _frame.ClearPivotItemView(mainService => 
+                        {
+                            mainService.For<InitMainViewModel>().WithParam(vm => vm.Title, categoryInfo.Label).Navigate();
+                        }, 0);
+                    }
                     break;
                 case "收藏":
                     {
-                        _frame.MainNavigationService.For<CollectViewModel>()
-                          .WithParam(vm => vm.Title, categoryInfo.Label)
-                          .Navigate();
+                        _frame.ClearPivotItemView(mainService =>
+                        {
+                            mainService.For<CollectViewModel>().WithParam(vm => vm.Title, categoryInfo.Label).Navigate();
+                        }, 1);
                     }
                     break;
                 case "下载":
                     {
-                        _frame.MainNavigationService.For<DownloadViewModel>()
-                          .WithParam(vm => vm.Title, categoryInfo.Label)
-                          .Navigate();
+                        _frame.ClearPivotItemView(mainService =>
+                        {
+                            mainService.For<DownloadViewModel>().WithParam(vm => vm.Title, categoryInfo.Label).Navigate();
+                        }, 2);
                     }
                     break;
                 case "关于":
@@ -90,7 +107,7 @@ namespace DemoFrame.ViewModels
         public void SetupDesktopMainNavigationService(Frame frame)
         {
             _frame.MainFrame= frame;
-            _frame.MainNavigationService.For<InitMainViewModel>().Navigate();
+            _frame.MainNavigationService.For<InitMainViewModel>().WithParam(vm => vm.Title, "首页").Navigate();
         }
         public void SetupDesktopContentNavigationService(Frame frame)
         {

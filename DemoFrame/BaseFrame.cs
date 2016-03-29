@@ -14,6 +14,8 @@ namespace DemoFrame
     public abstract class BaseFrame : INotifyFrameChanged
     {
         public event EventHandler<BackRequestedEventArgs> BackKeyPressing;
+        public event EventHandler<int> Back2MainView;
+
         public INavigationService MainNavigationService { get; private set; }
         public INavigationService ContentNavigationService { get; private set; }
         public INavigationService PhoneNavigationService { get; private set; }
@@ -79,6 +81,27 @@ namespace DemoFrame
         {
             BackKeyPressing?.Invoke(this, args);
         }
+        protected virtual void OnBack2MainView(int Index)
+        {
+            Back2MainView?.Invoke(this, Index);
+        }
+        public void ClearAllContentView(Action<INavigationService> action)
+        {
+            action(MainNavigationService);
+            while (ContentNavigationService.BackStack.Count > 0)
+            {
+                OnDesktopContentGoBack();
+            }
+        }
+        public void ClearPivotItemView(Action<INavigationService> action,int Index)
+        {
+            action(MainNavigationService);
+            while (MainNavigationService.BackStack.Count > 1)
+            {
+                MainNavigationService.BackStack.RemoveAt(1);
+            }
+            OnBack2MainView(Index);
 
+        }
     }
 }

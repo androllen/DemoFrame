@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,28 @@ namespace DemoFrame.Views
         public MainView()
         {
             this.InitializeComponent();
+            Loaded += MainShellView_Loaded;
+        }
+
+        private void MainShellView_Loaded(object sender, RoutedEventArgs e)
+        {
+            IoC.Get<INotifyFrameChanged>().Back2MainView += MainView_Back2MainView;
+        }
+
+        private void MainView_Back2MainView(object sender, int e)
+        {
+            switch (e)
+            {
+                case 0:
+                    this.NavLinksList.SelectedIndex = 0;
+                    break;
+                case 1:
+                    this.NavLinksList.SelectedIndex = 1;
+                    break;
+                case 2:
+                    this.NavLinksList.SelectedIndex = 2;
+                    break;
+            }
         }
 
         bool isOpen = false;

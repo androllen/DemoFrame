@@ -102,6 +102,7 @@ namespace DemoFrame
                     else
                     {
                         OnDesktopMainGoBack();
+                        OnBack2MainView(0);
                     }
 
 
