@@ -26,9 +26,6 @@ namespace DemoFrame.Views
         {
             InitializeComponent();
         }
-        private void OpenNavigationView(object sender, RoutedEventArgs e)
-        {
-            NavigationView.IsPaneOpen = true;
-        }
+ 
     }
 }

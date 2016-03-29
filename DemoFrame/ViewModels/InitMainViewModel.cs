@@ -21,18 +21,20 @@ namespace DemoFrame.ViewModels
                     NotifyOfPropertyChange(()=> Title);
                 }
             }
-        }
+        }  
 
-        public InitMainViewModel(INotifyFrameChanged frame)
+        public InitMainViewModel(INotifyFrameChanged frame) 
             : base(frame)
-        {
+        {   
         }
 
         public void ShowClickItem()
         {
-            _frame.ContentNavigationService.For<ShellViewModel>()
-              .WithParam(vm => vm.Title, "关于")
-              .Navigate();
+            _frame.Go2ContentView(ContentNavigationService =>
+            {
+                ContentNavigationService.For<ShellViewModel>()
+                  .Navigate();
+            });
 
         }
     }

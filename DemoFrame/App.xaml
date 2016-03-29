@@ -9,6 +9,7 @@
     
     <Application.Resources>
         <ResourceDictionary>
+            <local:NavigationManager x:Key="NavigationManager" />
             <ControlTemplate x:Key="SplitViewTogglePaneButtonTemplate" TargetType="Button">
                 <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
                     <VisualStateManager.VisualStateGroups>

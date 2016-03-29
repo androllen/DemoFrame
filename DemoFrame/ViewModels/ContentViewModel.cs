@@ -8,7 +8,7 @@ namespace DemoFrame.ViewModels
 {
     public class ContentViewModel : BaseViewModel
     {
-        public ContentViewModel(INotifyFrameChanged frame)
+        public ContentViewModel(INotifyFrameChanged frame) 
             : base(frame)
         {
         }

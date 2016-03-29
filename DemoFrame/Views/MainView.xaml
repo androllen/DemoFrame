@@ -102,7 +102,7 @@
                     </Frame>
                 </Grid>
             </Grid>
-            </SplitView>
+          </SplitView>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="LargeWideLayout">

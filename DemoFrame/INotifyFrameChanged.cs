@@ -35,6 +35,7 @@ namespace DemoFrame
 
         void ClearAllContentView(Action<INavigationService> action);
         void ClearPivotItemView(Action<INavigationService> action, int Index);
+        void Go2ContentView(Action<INavigationService> action);
 
         //void MainFrame(Frame frame);
         //void ContentFrame(Frame frame);

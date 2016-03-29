@@ -13,19 +13,8 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <SplitView x:Name="NavigationView" DisplayMode="Overlay" OpenPaneLength="120">
-            <SplitView.Pane>
-                <StackPanel Background="{ThemeResource AccentBrush}">
-                    <Button x:Name="ShowDevices" Content="Device Specific Views" Margin="24" />
-                </StackPanel>
-            </SplitView.Pane>
-            <SplitView.Content>
-                <Grid>
-                    <Button Click="OpenNavigationView" Content="&#xE700;"
+        <Button  x:Name="ShowDevices"  Content="&#xE700;"
                             FontFamily="{ThemeResource SymbolThemeFontFamily}"
                             VerticalAlignment="Top" Margin="24"/>
-                </Grid>
-            </SplitView.Content>
-        </SplitView>
     </Grid>
 </Page>

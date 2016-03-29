@@ -17,7 +17,11 @@ namespace DemoFrame.ViewModels
 
         public void ShowDevices()
         {
-            _frame.ContentNavigationService.For<ContentViewModel>().Navigate();
+            _frame.Go2ContentView(ContentNavigationService =>
+            {
+                ContentNavigationService.For<ContentViewModel>().Navigate();
+            });
+
         }
 
     }
