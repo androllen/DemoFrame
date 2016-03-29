@@ -70,6 +70,7 @@ namespace DemoFrame.Views
             System.Diagnostics.Debug.WriteLine("Width :" + gap.ToString());
             if (gap >= 800.0)
             {
+                splitView.IsPaneOpen = true;
                 isOpen = true;
             }
         }

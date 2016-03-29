@@ -103,34 +103,35 @@
                 </Grid>
             </Grid>
             </SplitView>
-    <VisualStateManager.VisualStateGroups>
-        <VisualStateGroup>
-            <VisualState x:Name="LargeWideLayout">
-                <VisualState.StateTriggers>
-                    <AdaptiveTrigger x:Name="LargeWideLayoutTrigger" MinWindowWidth="800"/>
-                </VisualState.StateTriggers>
-                <VisualState.Setters>
-                    <Setter Target="splitView.IsPaneOpen" Value="True" />
-                </VisualState.Setters>
-            </VisualState>
-            <VisualState x:Name="WideLayout">
-                <VisualState.StateTriggers>
-                    <AdaptiveTrigger x:Name="WideLayoutTrigger" MinWindowWidth="648"/>
-                </VisualState.StateTriggers>
-                <VisualState.Setters>
-                    <Setter Target="splitView.Visibility" Value="Visible" />
-                </VisualState.Setters>
-            </VisualState>
-            <VisualState x:Name="NarrowLayout">
-                <VisualState.StateTriggers>
-                    <AdaptiveTrigger MinWindowWidth="500" />
-                </VisualState.StateTriggers>
-                <VisualState.Setters>
-                    <Setter Target="splitView.Visibility" Value="Collapsed" />
-                    <Setter Target="newFrame.Visibility" Value="Visible" />
-                </VisualState.Setters>
-            </VisualState>
-        </VisualStateGroup>
-    </VisualStateManager.VisualStateGroups>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="LargeWideLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger x:Name="LargeWideLayoutTrigger" MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="splitView.IsPaneOpen" Value="True" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="WideLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger x:Name="WideLayoutTrigger" MinWindowWidth="648"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="splitView.IsPaneOpen" Value="False" />
+                        <Setter Target="splitView.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NarrowLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="500" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="splitView.Visibility" Value="Collapsed" />
+                        <Setter Target="newFrame.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>
