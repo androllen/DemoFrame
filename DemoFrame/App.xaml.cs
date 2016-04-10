@@ -2,6 +2,7 @@
 using DemoFrame.ViewModels;
 using WeYa.Tools;
 using Windows.ApplicationModel.Activation;
+using Windows.Foundation;
 
 namespace DemoFrame
 {
@@ -38,8 +39,15 @@ namespace DemoFrame
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
             DisplayRootViewFor<MainViewModel>();
-         
 
+            //var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+            //if (view != null)
+            //{
+            //    if (DeviceInfoHelper.IsType(DeviceFamily.Mobile))
+            //    {
+            //        view.SetPreferredMinSize(new Size(320, 768));
+            //    }
+            //}
         }
 
     }

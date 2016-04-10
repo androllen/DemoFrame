@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using Caliburn.Micro;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace DemoFrame
 {
     public class PhoneFrameMgr : BaseFrame
     {
         private SystemNavigationManager systemNavigationManager;
+        private bool _readyToExit;
 
         public PhoneFrameMgr(WinRTContainer container)
             : base(container)
@@ -48,7 +50,10 @@ namespace DemoFrame
 
         protected override void UpdatePhoneBackButton()
         {
-
+            if (PhoneNavigationService.CanGoBack)
+            {
+                PhoneNavigationService.GoBack();
+            }
         }
 
         protected override void OnDesktopMainGoBack()
@@ -81,7 +86,32 @@ namespace DemoFrame
         {
             if (PhoneNavigationService != null)
             {
-
+                if (PhoneNavigationService.BackStack.Count > 0 &&
+                    PhoneNavigationService.BackStack.First().SourcePageType != PhoneNavigationService.CurrentSourcePageType)
+                {
+                    while (PhoneNavigationService.BackStack.Count > 1)
+                    {
+                        PhoneNavigationService.BackStack.RemoveAt(1);
+                    }
+                    UpdatePhoneBackButton();
+                    OnBack2MainView(0);
+                }
+                else
+                {
+                    if (_readyToExit)
+                    {
+                        Application.Current.Exit();
+                    }
+                    else
+                    {
+                        var toast = new CCUWPToolkit.Controls.WYToastDialog();
+                        toast.ShowAsync("再按一次退出App",()=> 
+                        {
+                            _readyToExit = false;
+                        });
+                        _readyToExit = true;
+                    }
+                }
             }
             else
             {
