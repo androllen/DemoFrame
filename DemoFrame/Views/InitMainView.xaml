@@ -13,9 +13,8 @@
         <RelativePanel  HorizontalAlignment="Center"
                    VerticalAlignment="Center" >
             <TextBlock Text="{Binding Title}" FontSize="30" Foreground="Black" x:Name="demoblock"/>
-            <cpt:ButtonImage ButtonHeight="40" ButtonWidth="130" RelativePanel.Below="demoblock" 
-                             NormalStateColors="Yellow" Label="点我" 
-                             cm:Message.Attach="[Event Click] = [Action ShowClickItem]"/>
+            <cpt:WYBtnColors RelativePanel.Below="demoblock" 
+                             ColorsSource="Yellow" Label="点我" x:Name="ShowClickItem"/>
         </RelativePanel>
     </Grid>
 </Page>
