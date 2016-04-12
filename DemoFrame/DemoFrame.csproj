@@ -214,7 +214,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\DemoControl\CCUWPToolkit\CCUWPToolkit.csproj">
+    <ProjectReference Include="..\..\DemoControl\CCUWPToolkit\CCUWPToolkit.csproj">
       <Project>{057ca838-c89f-4130-a391-aa8df7ac1886}</Project>
       <Name>CCUWPToolkit</Name>
     </ProjectReference>
