@@ -5,16 +5,55 @@
     xmlns:local="using:DemoFrame.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:cpt="using:CCUWPToolkit.Controls"
     xmlns:cm="using:Caliburn.Micro"
     mc:Ignorable="d">
-
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <RelativePanel  HorizontalAlignment="Center"
-                   VerticalAlignment="Center" >
-            <TextBlock Text="{Binding Title}" FontSize="30" Foreground="Black" x:Name="demoblock"/>
-            <cpt:WYBtnColors RelativePanel.Below="demoblock" 
-                             ColorsSource="Yellow" Label="点我" x:Name="ShowClickItem"/>
-        </RelativePanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Border x:Name="Header"
+                VerticalAlignment="Top"
+                Background="Black">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <TextBlock Text="Items Retrieved:"
+                           Foreground="White"
+                           Margin="5" />
+                <TextBlock Text="{Binding InfiniteItems.Count}"
+                           Foreground="White"
+                           Margin="5" />
+            </StackPanel>
+        </Border>
+
+        <ListView ItemsSource="{Binding InfiniteItems}"
+                  Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="{ThemeResource SystemControlHighlightListAccentHighBrush}"
+                            Margin="0,0,0,5">
+                        <TextBlock Text="{Binding Title}"
+                                   HorizontalAlignment="Center"
+                                   Margin="20" />
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Stretch" />
+                    <Setter Property="HorizontalAlignment"
+                            Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment"
+                            Value="Stretch" />
+                    <Setter Property="VerticalAlignment"
+                            Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+
     </Grid>
+
 </Page>
