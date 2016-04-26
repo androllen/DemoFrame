@@ -27,5 +27,33 @@ namespace DemoFrame.Views
         {
             this.InitializeComponent();
         }
+        private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var panel = myGridView.ItemsPanelRoot as ItemsWrapGrid;
+            if (e.NewSize.Width < 500)
+            {
+                var itemSize = e.NewSize.Width / 2;
+                panel.ItemWidth = itemSize;
+                panel.ItemHeight = itemSize;
+            }
+            else if (e.NewSize.Width >= 500 && e.NewSize.Width <= 600)
+            {
+                var itemSize = e.NewSize.Width / 2;
+                panel.ItemWidth = itemSize;
+                panel.ItemHeight = itemSize;
+            }
+            else if (e.NewSize.Width >= 600 && e.NewSize.Width <= 700)
+            {
+                var itemSize = e.NewSize.Width / 3;
+                panel.ItemWidth = itemSize;
+                panel.ItemHeight = itemSize;
+            }
+            else if (e.NewSize.Width >= 700)
+            {
+                var itemSize = e.NewSize.Width / 4;
+                panel.ItemWidth = itemSize;
+                panel.ItemHeight = itemSize;
+            }
+        }
     }
 }

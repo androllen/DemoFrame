@@ -7,8 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:cm="using:Caliburn.Micro"
     mc:Ignorable="d">
-    
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="{ThemeResource BackgroundBrush}" 
+          SizeChanged="Grid_SizeChanged">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -28,7 +29,7 @@
             </StackPanel>
         </Border>
 
-        <ListView ItemsSource="{Binding InfiniteItems}"
+        <!--<ListView ItemsSource="{Binding InfiniteItems}"
                   Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -52,8 +53,40 @@
                             Value="Stretch" />
                 </Style>
             </ListView.ItemContainerStyle>
-        </ListView>
-
+        </ListView>-->
+        <GridView x:Name="myGridView" IsSynchronizedWithCurrentItem="False"
+                        ScrollViewer.HorizontalScrollMode="Enabled" 
+                        ItemsSource="{Binding InfiniteItems}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.Row="1">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="{ThemeResource SystemControlHighlightListAccentHighBrush}">
+                        <TextBlock Text="{Binding Title}"
+                                   HorizontalAlignment="Center"
+                                   Margin="20" />
+                    </Border>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Stretch" />
+                    <Setter Property="HorizontalAlignment"
+                            Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment"
+                            Value="Stretch" />
+                    <Setter Property="VerticalAlignment"
+                            Value="Stretch" />
+                    <Setter Property="Margin"
+                            Value="2" />
+                </Style>
+            </GridView.ItemContainerStyle>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="5"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
     </Grid>
 
 </Page>

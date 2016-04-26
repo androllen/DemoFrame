@@ -30,8 +30,8 @@ namespace WeYa.Tools.Utils
             : this(func, 0)
         {
         }
-        public IncrementalLoadingCollection(Func<CancellationToken, uint, Task<ObservableCollection<T>>> func, Action toastevent)
-            : this(func, 0, toastevent)
+        public IncrementalLoadingCollection(Func<CancellationToken, uint, Task<ObservableCollection<T>>> func, Action tfunc = null)
+            : this(func, 0, tfunc)
         {
         }
 
@@ -45,7 +45,7 @@ namespace WeYa.Tools.Utils
         {
         }
 
-        public IncrementalLoadingCollection(Func<CancellationToken, uint, Task<ObservableCollection<T>>> func, uint maxItems, Action tfunc)
+        public IncrementalLoadingCollection(Func<CancellationToken, uint, Task<ObservableCollection<T>>> func, uint maxItems, Action tfunc=null)
         {
             this.func = func;
             this.toastevent = tfunc;
