@@ -8,7 +8,7 @@ using System;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 
-namespace DemoFrame
+namespace WeYa.Core
 {
     public interface INotifyFrameChanged
     {
@@ -38,9 +38,11 @@ namespace DemoFrame
 
         //void MainFrame(Frame frame);
         //void ContentFrame(Frame frame);
-        void PhoneFrame(Frame frame);
+        void OnPhoneFrame(Frame frame);
+        bool IsHasContent();
 
         Frame MainFrame { get; set; }
         Frame ContentFrame { get; set; }
+        Frame PhoneFrame { get; set; }
     }
 }

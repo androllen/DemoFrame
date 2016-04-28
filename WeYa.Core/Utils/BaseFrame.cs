@@ -9,9 +9,8 @@ using Caliburn.Micro;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using DemoFrame.ViewModels;
 
-namespace DemoFrame
+namespace WeYa.Core
 {
     public abstract class BaseFrame : INotifyFrameChanged
     {
@@ -26,6 +25,7 @@ namespace DemoFrame
         protected abstract void OnDesktopContentGoBack();
         protected abstract void OnDesktopMainGoBack();
         protected abstract void OnPhoneGoBack();
+        public abstract bool IsHasContent();
 
         protected virtual void UpdateMainBackButton() { }
         protected virtual void UpdateContentBackButton() { }
@@ -61,6 +61,7 @@ namespace DemoFrame
             {
                 if (ContentNavigationService == null)
                 {
+
                     ContentNavigationService = new CachingFrameAdapter(value);
                     _container.RegisterInstance(typeof(INavigationService), "ContentFrame", ContentNavigationService);
                     _contentFrame = value;
@@ -69,10 +70,28 @@ namespace DemoFrame
             }
         }
 
-        public void PhoneFrame(Frame frame)
+        private Frame _phoneFrame;
+        public Frame PhoneFrame
         {
-            PhoneNavigationService = _container.RegisterNavigationService(frame);
-            PhoneNavigationService.Navigated += (s, e) => UpdatePhoneBackButton();
+            get
+            {
+                return _phoneFrame;
+            }
+
+            set
+            {
+                if (PhoneNavigationService == null)
+                {
+                    _phoneFrame = value;
+                    PhoneNavigationService = _container.RegisterNavigationService(_phoneFrame);
+                    PhoneNavigationService.Navigated += (s, e) => UpdatePhoneBackButton();
+                }
+            }
+        }
+
+        public void OnPhoneFrame(Frame frame)
+        {
+            PhoneFrame = frame;
         }
 
         protected virtual void OnBackKeyPressing(BackRequestedEventArgs args)
@@ -107,5 +126,6 @@ namespace DemoFrame
             action(ContentNavigationService);
             UpdateContentBackButton();
         }
+
     }
 }

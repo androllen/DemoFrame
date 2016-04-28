@@ -3,14 +3,20 @@
 ** 日期： 16/4/12 19:15:40
 ** 微博： http://weibo.com/Androllen
 *********************************************************************************/
+using Caliburn.Micro;
 
-namespace DemoFrame.ViewModels
+namespace WeYa.Core
 {
-    public class ContentViewModel : BaseViewModel
+    public abstract class BaseViewModel : Screen
     {
-        public ContentViewModel(INotifyFrameChanged frame) 
-            : base(frame)
+        public virtual string Title { get; set; }
+        protected readonly INotifyFrameChanged _frame;
+
+        public BaseViewModel(INotifyFrameChanged frame)
         {
+            _frame = frame;
+
         }
+
     }
 }

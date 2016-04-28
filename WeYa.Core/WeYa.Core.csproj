@@ -16,6 +16,10 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -108,9 +112,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extends\NavigationServiceExtensions.cs" />
+    <Compile Include="Utils\BaseFrame.cs" />
+    <Compile Include="Utils\BaseViewModel.cs" />
+    <Compile Include="Utils\INotifyFrameChanged.cs" />
+    <Compile Include="Utils\PhoneFrameMgr.cs" />
     <Compile Include="WeYaApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\WeYa.Core.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DemoControl\CCUWPToolkit\CCUWPToolkit.csproj">
+      <Project>{057ca838-c89f-4130-a391-aa8df7ac1886}</Project>
+      <Name>CCUWPToolkit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WeYa.Domain\WeYa.Domain.csproj">
+      <Project>{b855d265-f94f-4766-9fdd-086d2c768037}</Project>
+      <Name>WeYa.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WeYa.Tools\WeYa.Tools.csproj">
+      <Project>{d0476e9d-25ea-4ced-8955-01b1906c7258}</Project>
+      <Name>WeYa.Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

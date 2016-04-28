@@ -1,8 +1,10 @@
-﻿using System;
+﻿/********************************************************************************
+** 作者： androllen
+** 日期： 16/4/12 19:15:40
+** 微博： http://weibo.com/Androllen
+*********************************************************************************/
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Caliburn.Micro;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel;
@@ -19,13 +21,6 @@ namespace WeYa.Core
             _container = new WinRTContainer();
             _container.RegisterWinRTServices();
         }
-
-        protected override void OnLaunched(LaunchActivatedEventArgs args)
-        {
-            base.OnLaunched(args);
-
-        }
-
         protected override void OnSuspending(object sender, SuspendingEventArgs e)
         {
             base.OnSuspending(sender, e);

@@ -1,41 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/********************************************************************************
+** 作者： androllen
+** 日期： 16/4/12 19:15:40
+** 微博： http://weibo.com/Androllen
+*********************************************************************************/
+using System;
+using Caliburn.Micro;
+using Windows.Devices.Power;
+using Windows.Networking.Connectivity;
+using Windows.Storage;
+using Windows.UI.Xaml;
+using WeYa.Domain.Models;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using Windows.UI.Xaml.Controls;
 
 namespace WeYa.Domain
 {
-    public class BaseModel : INotifyPropertyChanged
+    public abstract class BaseModel : PropertyChangedBase ,INotifyAppChanged
     {
-        private string items;
-        public string Items
+        protected readonly ApplicationDataContainer _userSettingContainer;
+        public BaseModel()
         {
-            get { return items; }
-            set { SetProperty(ref items, value); }
+            _userSettingContainer = ApplicationData.Current.LocalSettings.CreateContainer("userinfo",
+                ApplicationDataCreateDisposition.Always);
         }
 
+        public virtual event EventHandler<BatteryReport> notifyBatteryStatusEvent;
+        public virtual event EventHandler<WwanConnectionProfileDetails> notifyConnectionEvent;
+        public virtual event EventHandler<ElementTheme> notifyElementThemeEvent;
+        public virtual event EventHandler<LoginResult> notifyLoginResultEvent;
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public bool SetProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
         {
             if (object.Equals(storage, value)) return false;
 
             storage = value;
-            this.OnPropertyChanged(propertyName);
+            this.OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
             return true;
         }
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected T GetGlobalInfo<T>(string key, T defaultValue)
         {
-            var eventHandler = this.PropertyChanged;
-            if (eventHandler != null)
+            if (_userSettingContainer.Values.ContainsKey(key))
             {
-                eventHandler(this, new PropertyChangedEventArgs(propertyName));
+                return (T)_userSettingContainer.Values[key];
+            }
+            else
+            {
+                return defaultValue;
             }
         }
+
+        protected void SetGlobalInfo<T>(string key, T value)
+        {
+            if (value == null)
+            {
+                _userSettingContainer.Values.Remove(key);
+            }
+            _userSettingContainer.Values[key] = value;
+        }
+
     }
 }

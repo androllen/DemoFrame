@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿/********************************************************************************
+** 作者： androllen
+** 日期： 16/4/12 19:15:40
+** 微博： http://weibo.com/Androllen
+*********************************************************************************/
 using Caliburn.Micro;
 
 namespace DemoFrame.ViewModels

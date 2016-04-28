@@ -1,4 +1,9 @@
-﻿using System;
+﻿/********************************************************************************
+** 作者： androllen
+** 日期： 16/4/12 19:15:40
+** 微博： http://weibo.com/Androllen
+*********************************************************************************/
+using System;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
@@ -42,7 +47,6 @@ namespace WeYa.Tools
         /// </summary>
         Xbox
     }
-
 
     public class DeviceInfoHelper
     {

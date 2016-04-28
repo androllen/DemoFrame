@@ -3,130 +3,91 @@
 ** 日期： 16/4/12 19:15:40
 ** 微博： http://weibo.com/Androllen
 ** 来源： https://github.com/LanceMcCarthy/UwpProjects
+** https://msdn.microsoft.com/en-us/library/windows/apps/xaml/hh780657.aspx about Data virtualization
 *********************************************************************************/
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml.Data;
 
 namespace WeYa.Tools.Utils
 {
-    public class IncrementalLoadingCollection<T> : ObservableCollection<T>, ISupportIncrementalLoading
+    public class IncrementalLoadingCollection<T> :
+        ObservableCollection<T>,
+        IIncrementalLoadingCollection<T>
     {
-        private readonly Func<CancellationToken, uint, Task<ObservableCollection<T>>> func;
-        private readonly Action toastevent;
-        private uint maxItems;
-        private bool isInfinite;
-        private CancellationToken token;
+        private readonly IVirtualisedDataSource<T> _dataSource;
+        private int? _dataSourceCount;
+        private bool _isLoading;
 
-        /// <summary>
-        /// Infinite, incremental scrolling list supported by ListView and GridView
-        /// </summary>
-        /// <param name="func"></param>
-        public IncrementalLoadingCollection(Func<CancellationToken, uint, Task<ObservableCollection<T>>> func)
-            : this(func, 0)
+        public IncrementalLoadingCollection(IVirtualisedDataSource<T> dataSource)
         {
-        }
-        public IncrementalLoadingCollection(Func<CancellationToken, uint, Task<ObservableCollection<T>>> func, Action tfunc = null)
-            : this(func, 0, tfunc)
-        {
-        }
-
-        /// <summary>
-        /// Incremental scrolling list supported by ListView and GridView
-        /// </summary>
-        /// <param name="func">Task that retrieves the items</param>
-        /// <param name="maxItems">Set to the maximum number of items to expect</param>
-        public IncrementalLoadingCollection(Func<CancellationToken, uint, Task<ObservableCollection<T>>> func, uint maxItems)
-            : this(func, maxItems, null)
-        {
-        }
-
-        public IncrementalLoadingCollection(Func<CancellationToken, uint, Task<ObservableCollection<T>>> func, uint maxItems, Action tfunc=null)
-        {
-            this.func = func;
-            this.toastevent = tfunc;
-            if (maxItems == 0) //Infinite
+            _dataSource = dataSource;
+            if (dataSource == null)
             {
-                isInfinite = true;
-            }
-            else
-            {
-                this.maxItems = maxItems;
-                isInfinite = false;
+                throw new ArgumentNullException("dataSource", "Data Source is required.");
             }
         }
-        public bool HasMoreItems
+
+        private uint AddRange(ObservableCollection<T> items)
         {
-            get
+            uint count = 0;
+
+            foreach (var item in items)
             {
-                if (this.token.IsCancellationRequested)
-                    return false;
+                Add(item);
+                ++count;
+            }
 
-                if (isInfinite)
-                    return true;
+            return count;
+        }
 
-                if (this.Count < maxItems)
-                {
-                    return true;
-                }
-                else
-                {
-                    if (toastevent != null)
-                        toastevent();
-
-                    return false;
-                }
+        private async Task EnsureDataSourceHasBeenCount()
+        {
+            if (!_dataSourceCount.HasValue)
+            {
+                _dataSourceCount = await _dataSource.GetCountAsync();
             }
         }
+
+        private async Task<LoadMoreItemsResult> LoadMoreItemsFromDataSourceAsync(uint count)
+        {
+            var result = new LoadMoreItemsResult();
+            _isLoading = true;
+
+            try
+            {
+                await EnsureDataSourceHasBeenCount();
+
+                var startIndex = (uint)Count;
+                var itemsToAdd = await _dataSource.GetItemsAsync(startIndex, count);
+                var itemsAddedCount = AddRange(itemsToAdd);
+
+                _hasMoreItems = (_dataSourceCount > Count);
+
+                result.Count = itemsAddedCount;
+            }
+            finally
+            {
+                _isLoading = false;
+            }
+
+            return result;
+        }
+
+        private bool _hasMoreItems = true;
+        public bool HasMoreItems { get { return _hasMoreItems; } }
 
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
-            return AsyncInfo.Run(tkn => InternalLoadMoreItemsAsync(tkn, count));
-        }
-
-        private async Task<LoadMoreItemsResult> InternalLoadMoreItemsAsync(CancellationToken passedToken, uint count)
-        {
-            ObservableCollection<T> tempList = null;
-            this.token = passedToken;
-            var baseIndex = this.Count;
-            uint numberOfItemsToGet = 0;
-
-            if (!isInfinite)
+            if (_isLoading)
             {
-                if (baseIndex + count < maxItems)
-                {
-                    numberOfItemsToGet = count;
-                }
-                else
-                {
-                    numberOfItemsToGet = maxItems - (uint)(baseIndex);
-                }
+                throw new InvalidOperationException();
             }
-            else
-            {
-                numberOfItemsToGet = count;
-            }
-
-            tempList = await func(passedToken, numberOfItemsToGet);
-
-            if (tempList.Count == 0) //no more items, stop the incremental loading 
-            {
-                maxItems = (uint)this.Count;
-                isInfinite = false;
-            }
-            else
-            {
-                foreach (var item in tempList)
-                {
-                    this.Add(item);
-                }
-            }
-
-            return new LoadMoreItemsResult { Count = (uint)tempList.Count };
+            return AsyncInfo.Run(token => LoadMoreItemsFromDataSourceAsync(count));
         }
     }
 }

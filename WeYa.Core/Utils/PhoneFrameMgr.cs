@@ -8,14 +8,16 @@ using Caliburn.Micro;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
+using CCUWPToolkit.Controls;
+using System;
 
-namespace DemoFrame
+namespace WeYa.Core
 {
     public class PhoneFrameMgr : BaseFrame
     {
         private SystemNavigationManager systemNavigationManager;
         private bool _readyToExit;
-
+        private bool _isHas=false;
         public PhoneFrameMgr(WinRTContainer container)
             : base(container)
         {
@@ -23,6 +25,10 @@ namespace DemoFrame
             systemNavigationManager.BackRequested += FrameManager_BackRequested;
         }
 
+        public override bool IsHasContent()
+        {
+            return _isHas;
+        }
         private void FrameManager_BackRequested(object sender, BackRequestedEventArgs e)
         {
             OnBackKeyPressing(e);
@@ -45,6 +51,8 @@ namespace DemoFrame
             int bs_Count = this.ContentNavigationService.BackStack.Count;
             int fs_Count= this.ContentNavigationService.ForwardStack.Count;
 
+            _isHas = bs_Count > 0 ? true : false;
+
             systemNavigationManager.AppViewBackButtonVisibility =
             this.ContentNavigationService.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
@@ -56,6 +64,7 @@ namespace DemoFrame
                 PhoneNavigationService.GoBack();
             }
         }
+       
 
         protected override void OnDesktopMainGoBack()
         {
@@ -105,7 +114,7 @@ namespace DemoFrame
                     }
                     else
                     {
-                        var toast = new CCUWPToolkit.Controls.WYToastDialog();
+                        var toast = new WYToastDialog();
                         toast.ShowAsync("再按一次退出App",()=> 
                         {
                             _readyToExit = false;
@@ -136,5 +145,6 @@ namespace DemoFrame
         {
             base.OnBack2MainView(Index);
         }
+
     }
 }
