@@ -33,9 +33,9 @@ namespace WeYa.Tools.Utils
             {
                 var items = new ObservableCollection<IncrementedItem>();
 
-                for (int i = (int)startIndex; i < count; i++)
+                for (int i = (int)startIndex; i < count+ startIndex; i++)
                 {
-                    items.Add(new IncrementedItem { Id = i, Title = $"Item {i}" });
+                    items.Add(new IncrementedItem { Id = i, Title = "https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white_fe6da1ec.png" });
                 }
 
                 return items;
