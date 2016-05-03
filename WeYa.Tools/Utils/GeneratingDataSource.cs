@@ -35,9 +35,9 @@ namespace WeYa.Tools.Utils
 
                 for (int i = (int)startIndex; i < count+ startIndex; i++)
                 {
-                    items.Add(new IncrementedItem { Id = i, Title = "http://tp4.sinaimg.cn/2859170043/180/5756730722/1" });
+                    items.Add(new IncrementedItem { Id = i, Title = "https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white_fe6da1ec.png" });
                 }
-                System.Diagnostics.Debug.WriteLine("begin id :" + startIndex);
+
                 return items;
             });
         }
