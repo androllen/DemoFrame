@@ -5,7 +5,11 @@
 *********************************************************************************/
 using Caliburn.Micro;
 using System;
+using WeYa.Domain.Models;
+using WeYa.Tools.Event;
+using Windows.Foundation;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace WeYa.Core
@@ -14,6 +18,8 @@ namespace WeYa.Core
     {
         event EventHandler<BackRequestedEventArgs> BackKeyPressing;
         event EventHandler<int> Back2MainView;
+        event EventHandler<AdaptiveEventArgs> ItemsWrapGridType;
+        event EventHandler ContentNotify;
         /// <summary>
         /// 处理分类信息
         /// 1.导航
@@ -44,5 +50,7 @@ namespace WeYa.Core
         Frame MainFrame { get; set; }
         Frame ContentFrame { get; set; }
         Frame PhoneFrame { get; set; }
+
+        void IsAdaptiveType(AdaptiveType type,Size size);
     }
 }

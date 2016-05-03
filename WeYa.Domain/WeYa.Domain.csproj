@@ -113,6 +113,7 @@
   <ItemGroup>
     <Compile Include="GlobalInfoManager.cs" />
     <Compile Include="INotifyAppChanged.cs" />
+    <Compile Include="Models\AdaptiveType.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\IncrementedItem.cs" />
     <Compile Include="Models\LoginResult.cs" />

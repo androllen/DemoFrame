@@ -6,9 +6,12 @@
 using System;
 using System.Linq;
 using Caliburn.Micro;
+using WeYa.Domain.Models;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using WeYa.Tools.Event;
+using Windows.Foundation;
 
 namespace WeYa.Core
 {
@@ -16,6 +19,8 @@ namespace WeYa.Core
     {
         public event EventHandler<BackRequestedEventArgs> BackKeyPressing;
         public event EventHandler<int> Back2MainView;
+        public event EventHandler<AdaptiveEventArgs> ItemsWrapGridType;
+        public event EventHandler ContentNotify;
 
         public INavigationService MainNavigationService { get; private set; }
         public INavigationService ContentNavigationService { get; private set; }
@@ -62,10 +67,12 @@ namespace WeYa.Core
                 if (ContentNavigationService == null)
                 {
 
+                    _contentFrame = value;
                     ContentNavigationService = new CachingFrameAdapter(value);
                     _container.RegisterInstance(typeof(INavigationService), "ContentFrame", ContentNavigationService);
-                    _contentFrame = value;
                     ContentNavigationService.Navigated += (s, e) => UpdateContentBackButton();
+
+                    ContentNotify?.Invoke(this,null);
                 }
             }
         }
@@ -127,5 +134,12 @@ namespace WeYa.Core
             UpdateContentBackButton();
         }
 
+        public void IsAdaptiveType(AdaptiveType type, Size size)
+        {
+            AdaptiveEventArgs args = new AdaptiveEventArgs();
+            args.type = type;
+            args.NewSize = size;
+            ItemsWrapGridType?.Invoke(this, args);
+        }
     }
 }

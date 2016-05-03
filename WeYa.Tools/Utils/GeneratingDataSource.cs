@@ -33,11 +33,11 @@ namespace WeYa.Tools.Utils
             {
                 var items = new ObservableCollection<IncrementedItem>();
 
-                for (int i = (int)startIndex; i < count; i++)
+                for (int i = (int)startIndex; i < count+ startIndex; i++)
                 {
-                    items.Add(new IncrementedItem { Id = i, Title = $"Item {i}" });
+                    items.Add(new IncrementedItem { Id = i, Title = "http://tp4.sinaimg.cn/2859170043/180/5756730722/1" });
                 }
-
+                System.Diagnostics.Debug.WriteLine("begin id :" + startIndex);
                 return items;
             });
         }
