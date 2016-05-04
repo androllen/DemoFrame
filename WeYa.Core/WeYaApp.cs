@@ -21,6 +21,11 @@ namespace WeYa.Core
             _container = new WinRTContainer();
             _container.RegisterWinRTServices();
         }
+        protected override void PrepareViewFirst()
+        {
+            base.PrepareViewFirst();
+        }
+ 
         protected override void OnSuspending(object sender, SuspendingEventArgs e)
         {
             base.OnSuspending(sender, e);

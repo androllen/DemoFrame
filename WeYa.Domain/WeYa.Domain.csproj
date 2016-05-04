@@ -118,6 +118,7 @@
     <Compile Include="Models\IncrementedItem.cs" />
     <Compile Include="Models\LoginResult.cs" />
     <Compile Include="Models\NavLink.cs" />
+    <Compile Include="Models\SampleDataModel.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\WeYa.Domain.rd.xml" />

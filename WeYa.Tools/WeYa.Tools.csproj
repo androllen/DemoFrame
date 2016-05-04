@@ -115,6 +115,7 @@
     <Compile Include="Event\AdaptiveEventArgs.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextInfoHelper.cs" />
     <Compile Include="Utils\GeneratingDataSource.cs" />
     <Compile Include="Utils\IIncrementalLoadingCollection.cs" />
     <Compile Include="Utils\IncrementalLoadingCollection.cs" />
