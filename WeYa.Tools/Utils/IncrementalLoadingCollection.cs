@@ -3,21 +3,22 @@
 ** 日期： 16/4/12 19:15:40
 ** 微博： http://weibo.com/Androllen
 ** 来源： https://github.com/LanceMcCarthy/UwpProjects
-** https://msdn.microsoft.com/en-us/library/windows/apps/xaml/hh780657.aspx about Data virtualization
+** 关于： https://msdn.microsoft.com/en-us/library/windows/apps/xaml/hh780657.aspx
 *********************************************************************************/
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml.Data;
+using Caliburn.Micro;
+using System.Collections;
 
 namespace WeYa.Tools.Utils
 {
     public class IncrementalLoadingCollection<T> :
-        ObservableCollection<T>,
-        IIncrementalLoadingCollection<T>
+        BindableCollection<T>,
+        IList, 
+        ISupportIncrementalLoading
     {
         private readonly IVirtualisedDataSource<T> _dataSource;
         private int? _dataSourceCount;
@@ -32,7 +33,7 @@ namespace WeYa.Tools.Utils
             }
         }
 
-        private uint AddRange(ObservableCollection<T> items)
+        private uint AddRange(BindableCollection<T> items)
         {
             uint count = 0;
 

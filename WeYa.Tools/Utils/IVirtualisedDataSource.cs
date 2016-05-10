@@ -9,12 +9,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Caliburn.Micro;
 
 namespace WeYa.Tools.Utils
 {
     public interface IVirtualisedDataSource<T>
     {
         Task<int> GetCountAsync();
-        Task<ObservableCollection<T>> GetItemsAsync(uint startIndex, uint count);
+        Task<BindableCollection<T>> GetItemsAsync(uint startIndex, uint count);
     }
 }
