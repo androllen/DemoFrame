@@ -18,11 +18,23 @@ namespace WeYa.Tools.Utils
     public class IncrementalLoadingCollection<T> :
         BindableCollection<T>,
         IList, 
+        INotifyCollectionChanged,
         ISupportIncrementalLoading
     {
         private readonly IVirtualisedDataSource<T> _dataSource;
+
+        public int Index { get; set; }
+        public int Page { get; set; }
+        public int PageCount { get; set; }
+        public int maxid { get; set; }
+
+        public bool IsLoaded { get; set; }
+        public bool IsLoading { get; set; }
+
+        public bool IsRefreshing { get; set; }
+        public bool IsRefreshed { get; set; }
+
         private int? _dataSourceCount;
-        private bool _isLoading;
 
         public IncrementalLoadingCollection(IVirtualisedDataSource<T> dataSource)
         {
@@ -53,11 +65,16 @@ namespace WeYa.Tools.Utils
                 _dataSourceCount = await _dataSource.GetCountAsync();
             }
         }
-
+        /// <summary>
+        /// 加载更多
+        /// IsLoading 作为标志位
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
         private async Task<LoadMoreItemsResult> LoadMoreItemsFromDataSourceAsync(uint count)
         {
             var result = new LoadMoreItemsResult();
-            _isLoading = true;
+            IsLoading = true;
 
             try
             {
@@ -73,7 +90,7 @@ namespace WeYa.Tools.Utils
             }
             finally
             {
-                _isLoading = false;
+                IsLoading = false;
             }
 
             return result;
@@ -84,7 +101,7 @@ namespace WeYa.Tools.Utils
 
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
-            if (_isLoading)
+            if (IsLoading)
             {
                 throw new InvalidOperationException();
             }

@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extends\NavigationServiceExtensions.cs" />
+    <Compile Include="INotifyCollectionChanged.cs" />
     <Compile Include="Utils\BaseFrame.cs" />
     <Compile Include="Utils\BaseViewModel.cs" />
     <Compile Include="Utils\INotifyFrameChanged.cs" />

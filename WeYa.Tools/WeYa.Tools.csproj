@@ -111,22 +111,13 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeviceInfoHelper.cs" />
+    <Compile Include="Const_def.cs" />
     <Compile Include="Event\AdaptiveEventArgs.cs" />
-    <Compile Include="Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextInfoHelper.cs" />
-    <Compile Include="Utils\IncrementalLoadingCollection.cs" />
-    <Compile Include="Utils\IVirtualisedDataSource.cs" />
+    <Compile Include="VirtualisedCollection\IncrementalLoadingCollection.cs" />
+    <Compile Include="VirtualisedCollection\INotifyCollectionChanged.cs" />
+    <Compile Include="VirtualisedCollection\IVirtualisedDataSource.cs" />
     <EmbeddedResource Include="Properties\WeYa.Tools.rd.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="WindowsDesktop, Version=10.0.10586.0">
-      <Name>Windows Desktop Extensions for the UWP</Name>
-    </SDKReference>
-    <SDKReference Include="WindowsMobile, Version=10.0.10586.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
-    </SDKReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WeYa.Domain\WeYa.Domain.csproj">
