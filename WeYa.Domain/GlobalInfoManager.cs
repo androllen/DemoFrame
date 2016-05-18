@@ -17,6 +17,7 @@ using Windows.Devices.Power;
 using Windows.Networking.Connectivity;
 using Windows.UI.Xaml;
 using Newtonsoft.Json;
+using WeYa.Utils.EnumType;
 
 namespace WeYa.Domain
 {
@@ -109,7 +110,14 @@ namespace WeYa.Domain
         }
         #endregion
 
-
+        public CacheType mIsCacheMode
+        {
+            get { return GetGlobalInfo("IsCacheMode", CacheType.Open); }
+            set
+            {
+                SetGlobalInfo("IsCacheMode", value);
+            }
+        }
 
     }
 }

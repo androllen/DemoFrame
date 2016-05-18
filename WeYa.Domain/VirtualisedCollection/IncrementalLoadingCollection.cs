@@ -13,31 +13,25 @@ using Windows.UI.Xaml.Data;
 using Caliburn.Micro;
 using System.Collections;
 
-namespace WeYa.Tools.Utils
+namespace WeYa.Domain.Util
 {
     public class IncrementalLoadingCollection<T> :
         BindableCollection<T>,
         IList, 
-        INotifyCollectionChanged,
         ISupportIncrementalLoading
     {
         private readonly IVirtualisedDataSource<T> _dataSource;
 
-        public int Index { get; set; }
-        public int Page { get; set; }
-        public int PageCount { get; set; }
-        public int maxid { get; set; }
-
+        private DebugLog _log;
         public bool IsLoaded { get; set; }
         public bool IsLoading { get; set; }
-
-        public bool IsRefreshing { get; set; }
-        public bool IsRefreshed { get; set; }
 
         private int? _dataSourceCount;
 
         public IncrementalLoadingCollection(IVirtualisedDataSource<T> dataSource)
         {
+            _log = new DebugLog(typeof(string));
+
             _dataSource = dataSource;
             if (dataSource == null)
             {
@@ -81,6 +75,9 @@ namespace WeYa.Tools.Utils
                 await EnsureDataSourceHasBeenCount();
 
                 var startIndex = (uint)Count;
+                _log.Info("{0}", startIndex);
+
+                var page = await _dataSource.GetPageStartIndexAsync();
                 var itemsToAdd = await _dataSource.GetItemsAsync(startIndex, count);
                 var itemsAddedCount = AddRange(itemsToAdd);
 

@@ -226,10 +226,6 @@
       <Project>{b855d265-f94f-4766-9fdd-086d2c768037}</Project>
       <Name>WeYa.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WeYa.Tools\WeYa.Tools.csproj">
-      <Project>{d0476e9d-25ea-4ced-8955-01b1906c7258}</Project>
-      <Name>WeYa.Tools</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

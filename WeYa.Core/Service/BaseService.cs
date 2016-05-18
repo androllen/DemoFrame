@@ -1,21 +1,17 @@
 ﻿/********************************************************************************
 ** 作者： androllen
-** 日期： 16/4/29 16:57:14
+** 日期： 16/5/18 15:24:58
 ** 微博： http://weibo.com/Androllen
 *********************************************************************************/
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using WeYa.Domain.Models;
-using Windows.Foundation;
 
-namespace WeYa.Tools.Event
+namespace WeYa.Core
 {
-    public class AdaptiveEventArgs
+    public abstract class BaseService 
     {
-        public AdaptiveType type { get; set; }
-        public Size NewSize { get; set; }
+
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WeYa.Tools.Utils
+namespace WeYa.Domain.Util
 {
-    interface INotifyCollectionChanged
+    public interface INotifyCollectionChanged
     {
         bool IsLoaded { get; set; }
         bool IsLoading { get; set; }
@@ -14,7 +14,6 @@ namespace WeYa.Tools.Utils
         bool IsRefreshing { get; set; }
         bool IsRefreshed { get; set; }
 
-        int Index { get; set; }
         int Page { get; set; }
         int PageCount { get; set; }
         int maxid { get; set; }
