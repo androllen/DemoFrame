@@ -10,8 +10,8 @@ using WeYa.Domain.Models;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using WeYa.Tools.Event;
 using Windows.Foundation;
+using WeYa.Domain;
 
 namespace WeYa.Core
 {

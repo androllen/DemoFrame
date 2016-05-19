@@ -8,7 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Caliburn.Micro;
-using WeYa.Utils.EnumType;
+using WeYa.Utils;
+using System.Net;
 
 namespace WeYa.Domain
 {
@@ -19,9 +20,9 @@ namespace WeYa.Domain
         /// </summary>
         /// <param name="data">回调数据实例, 若无数据返回，该值可以为 null.</param>
         public Callback(T data)
-            : this(DataResult.Result_OK, data)
+            : this(HttpErrorStatus.Success, data)
         {
-
+            this.Data = data;
         }
 
         /// <summary>
@@ -29,23 +30,23 @@ namespace WeYa.Domain
         /// </summary>
         /// <param name="succeed">指示 Service 是否成功取得数据，默认为 true.</param>
         /// <param name="data">回调数据实例, 若无数据返回，该值可以为 null.</param>
-        public Callback(DataResult succeed, T data)
+        public Callback(HttpErrorStatus succeed, T data)
             : this(succeed, data, null)
         {
             this.Data = data;
-            this.Succeed = succeed;
+            this.Statused = succeed;
         }
         /// <summary>
         /// 构造函数.
         /// </summary>
         /// <param name="succeed">指示 Service 是否成功取得数据，默认为 true.</param>
         /// <param name="data">回调数据实例, 若无数据返回，该值可以为 null.</param>
-        public Callback(DataResult succeed, string result, T data)
+        public Callback(HttpErrorStatus succeed, string result, T data)
             : this(succeed, data, null)
         {
             this.Data = data;
             this.Result = result;
-            this.Succeed = succeed;
+            this.Statused = succeed;
         }
         /// <summary>
         /// 构造函数.
@@ -53,11 +54,21 @@ namespace WeYa.Domain
         /// <param name="succeed">指示 Service 是否成功取得数据，默认为 true.</param>
         /// <param name="data">回调数据实例, 若无数据返回，该值可以为 null.</param>
         /// <param name="innerException">若有网络或数据异常发生，可以使用此参数.</param>
-        public Callback(DataResult succeed, T data, Exception innerException)
+        public Callback(HttpErrorStatus succeed, T data, Exception innerException)
         {
             this.InnerException = innerException;
             this.Data = data;
-            this.Succeed = succeed;
+            this.Statused = succeed;
+        }
+        /// <summary>
+        /// 构造函数.
+        /// </summary>
+        /// <param name="succeed">指示 Service 是否成功取得数据，默认为 true.</param>
+        /// <param name="innerException">若有网络或数据异常发生，可以使用此参数.</param>
+        public Callback(HttpErrorStatus succeed, Exception innerException)
+        {
+            this.InnerException = innerException;
+            this.Statused = succeed;
         }
 
         /// <summary>
@@ -70,15 +81,7 @@ namespace WeYa.Domain
         /// </summary>
         public T Data { get; set; }
 
-        /// <summary>
-        /// 获取或设置是否成功取得数据.
-        /// </summary>
-        /// <remarks>
-        /// 默认为 true.
-        /// </remarks>
-        //public bool Succeed { get; set; }
-
-        public DataResult Succeed { get; set; }
+        public HttpErrorStatus Statused { get; set; }
         /// <summary>
         /// 获取或设置取得数据状态结果
         /// </summary>

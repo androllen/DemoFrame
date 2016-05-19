@@ -24,144 +24,51 @@ namespace WeYa.Core
 {
     public class MainService : BaseService
     {
-        private int _pagecount;
         private readonly INotifyCache _baseDeserializer;
-
         public MainService(INotifyCache deser)
         {
             _baseDeserializer = deser;
         }
 
-        //获取分类
-        public async Task<BindableCollection<UserInfo>> GetCategory(int page)
+        public async Task HotGet<T>(ServiceArgument args, Action<BindableCollection<T>> callback)
         {
             var pair = new Dictionary<string, object>();
             pair.Add("id", 1);
-            pair.Add("count", 2);
-            pair.Add("page", page);
+            pair.Add("type", 1);
+            pair.Add("feature", args.feature);
+            pair.Add("page", args.page);
+            pair.Add("language", DeviceUtil.Language);
+            pair.Add("client_id", "1089857302");
+            pair.Add("device_id", DeviceUtil.UniqueId);
+            pair.Add("version", DeviceUtil.Version);
+            pair.Add("channel", DeviceUtil.Channel);
 
-            StringBuilder sb = new StringBuilder();
-            foreach (var i in pair)
+            await Get(pair, response =>
             {
-                sb.Append(i.Key);
-                sb.Append("=");
-                sb.Append(i.Value);
-                sb.Append("&");
-            }
-
-            return await Get<UserInfo>(string.Concat(Const_def.API_Category, sb.ToString().TrimEnd('&')));
-        }
-
-        private async Task<T> Get<T>(string url)
-        {
-            var handler = new HttpClientHandler
-            {
-                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
-                UseCookies = true,
-                UseDefaultCredentials = false,
-                AllowAutoRedirect = false
-            };
-            try
-            {
-                using (var client = new HttpClient(handler))
+                switch (response.Statused)
                 {
-                    var token = new CancellationToken();
-                    token.ThrowIfCancellationRequested();
+                    case HttpErrorStatus.Success:
+                        {
+                            //序列化 分开
+                            //缓存分开
+                            var taskCache = _baseDeserializer.SaveFile(Const_def.db_CacheDir, response.Data);
 
-                    var response = await client.GetAsync(url, token);
-                    var json = await response.Content.ReadAsStringAsync();
+                            var taskModels = JsonConvert.DeserializeObject<BindableCollection<T>>(response.Data);
 
-                    //序列化 分开
-                    var taskModels = JsonConvert.DeserializeObject<T>(json);
-                    //缓存分开
-                    var taskCache = _baseDeserializer.SaveFile("",taskModels);
-
-                    return taskModels;
+                            callback?.Invoke(taskModels);
+                            break;
+                        }
+                    case HttpErrorStatus.JsonError:
+                        break;
+                    case HttpErrorStatus.NetworkError:
+                        break;
+                    case HttpErrorStatus.UnknownError:
+                        break;
+                    case HttpErrorStatus.UserCancelOperation:
+                        break;
                 }
-            }
-            catch (XmlException e)
-            {
-                Debug.WriteLine(e);
-                return new RequestResult<T>
-                {
-                    ResultType = RequestResultType.Error,
-                    ErrorMessage = Constants.JsonError,
-                };
-            }
-            catch (OperationCanceledException e)
-            {
-                Debug.WriteLine(e);
-                return new RequestResult<T>
-                {
-                    ResultType = RequestResultType.Cancel,
-                    ErrorMessage = Constants.UserCancelOperation,
-                };
-            }
-            catch (HttpRequestException e)
-            {
-                Debug.WriteLine(e);
-                return new RequestResult<T>
-                {
-                    ResultType = RequestResultType.Error,
-                    ErrorMessage = Constants.NetworkError,
-                };
-            }
-            catch (WebException e)
-            {
-                Debug.WriteLine(e);
-                return new RequestResult<T>
-                {
-                    ResultType = RequestResultType.Error,
-                    ErrorMessage = Constants.NetworkError,
-                };
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-                return new RequestResult<T>
-                {
-                    ResultType = RequestResultType.Error,
-                    ErrorMessage = Constants.UnknownError,
-                };
-            }
+            });
         }
-        private async Task<BindableCollection<T>> Post<T>(int index)
-        {
-            var cookieContainer = new CookieContainer();
-            var handler = new HttpClientHandler
-            {
-                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
-                UseCookies = true,
-                UseDefaultCredentials = false,
-                CookieContainer = cookieContainer
-            };
 
-            try
-            {
-                using (var client = new HttpClient(handler))
-                {
-                    var dic = new Dictionary<string, string>
-                    {
-                        ["action"] = "login",
-                    };
-                    client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue()
-                    {
-                        NoCache = true
-                    };
-                    var header = new FormUrlEncodedContent(dic);
-                    var response = await client.PostAsync(new Uri(Const_def.API_Category), header);
-                    var json = await response.Content.ReadAsStringAsync();
-                
-                    var taskModels = JsonConvert.DeserializeObject<BindableCollection<T>>(json);
-                    return taskModels;
-                }
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
     }
 }

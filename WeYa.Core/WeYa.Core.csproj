@@ -115,6 +115,7 @@
     <Compile Include="INotifyCollectionChanged.cs" />
     <Compile Include="Service\BaseService.cs" />
     <Compile Include="Service\MainService.cs" />
+    <Compile Include="Service\ServiceArgument.cs" />
     <Compile Include="Utils\BaseFrame.cs" />
     <Compile Include="Utils\BaseViewModel.cs" />
     <Compile Include="Utils\INotifyFrameChanged.cs" />

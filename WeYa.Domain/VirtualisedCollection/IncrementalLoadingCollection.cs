@@ -79,6 +79,7 @@ namespace WeYa.Domain.Util
 
                 var page = await _dataSource.GetPageStartIndexAsync();
                 var itemsToAdd = await _dataSource.GetItemsAsync(startIndex, count);
+
                 var itemsAddedCount = AddRange(itemsToAdd);
 
                 _hasMoreItems = (_dataSourceCount > Count);

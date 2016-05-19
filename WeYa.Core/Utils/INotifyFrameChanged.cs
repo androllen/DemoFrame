@@ -5,8 +5,8 @@
 *********************************************************************************/
 using Caliburn.Micro;
 using System;
+using WeYa.Domain;
 using WeYa.Domain.Models;
-using WeYa.Tools.Event;
 using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;

@@ -17,7 +17,7 @@ using Windows.Devices.Power;
 using Windows.Networking.Connectivity;
 using Windows.UI.Xaml;
 using Newtonsoft.Json;
-using WeYa.Utils.EnumType;
+using WeYa.Utils;
 
 namespace WeYa.Domain
 {
