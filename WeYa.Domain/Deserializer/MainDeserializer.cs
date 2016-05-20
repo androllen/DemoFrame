@@ -23,26 +23,26 @@ namespace WeYa.Domain
 
         public async Task<bool> Delete(string path)
         {
-            StorageFile file = await FileUtil.GetFile(path);
+            StorageFile file = await FileUtil.GetFileAsync(path);
             return await FileUtil.DeleteFile(path);
         }
 
         public async Task<Stream> ReadStream(string path)
         {
-            StorageFile file = await FileUtil.GetFile(path);
+            StorageFile file = await FileUtil.GetFileAsync(path);
             return await FileUtil.ReadStream(file, path);
         }
 
         public async Task<string> ReadString(string path)
         {
-            StorageFile file = await FileUtil.GetFile(path);
+            StorageFile file = await FileUtil.GetFileAsync(path);
             return await FileUtil.ReadText(file,path);
         }
   
         public async Task SaveFile(string path, object value)
         {
             var json = JsonConvert.SerializeObject(value);
-            StorageFile file =await FileUtil.MakeFile(path);
+            StorageFile file =await FileUtil.CreateFileAsync(path);
             await FileUtil.WriteText(file, json);
         }
     }

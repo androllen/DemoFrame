@@ -33,7 +33,7 @@ namespace WeYa.Core
         public async Task HotGet<T>(ServiceArgument args, Action<BindableCollection<T>> callback)
         {
             var pair = new Dictionary<string, object>();
-            pair.Add("id", 1);
+            pair.Add("id", args.id);
             pair.Add("type", 1);
             pair.Add("feature", args.feature);
             pair.Add("page", args.page);
@@ -42,6 +42,7 @@ namespace WeYa.Core
             pair.Add("device_id", DeviceUtil.UniqueId);
             pair.Add("version", DeviceUtil.Version);
             pair.Add("channel", DeviceUtil.Channel);
+            pair.Add("model", "N918St");
 
             await Get(pair, response =>
             {
@@ -49,10 +50,11 @@ namespace WeYa.Core
                 {
                     case HttpErrorStatus.Success:
                         {
-                            //序列化 分开
                             //缓存分开
+                            //异步写入数据库 不使用文件保存 下次加载缓存数据从数据库加载
                             var taskCache = _baseDeserializer.SaveFile(Const_def.db_CacheDir, response.Data);
 
+                            //序列化
                             var taskModels = JsonConvert.DeserializeObject<BindableCollection<T>>(response.Data);
 
                             callback?.Invoke(taskModels);

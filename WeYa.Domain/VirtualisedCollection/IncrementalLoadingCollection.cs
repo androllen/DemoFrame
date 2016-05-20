@@ -30,15 +30,16 @@ namespace WeYa.Domain.Util
 
         public IncrementalLoadingCollection(IVirtualisedDataSource<T> dataSource)
         {
-            _log = new DebugLog(typeof(string));
+            _log = new DebugLog(typeof(object));
 
             _dataSource = dataSource;
+
             if (dataSource == null)
             {
                 throw new ArgumentNullException("dataSource", "Data Source is required.");
             }
         }
-
+ 
         private uint AddRange(BindableCollection<T> items)
         {
             uint count = 0;
@@ -77,7 +78,10 @@ namespace WeYa.Domain.Util
                 var startIndex = (uint)Count;
                 _log.Info("{0}", startIndex);
 
+
                 var page = await _dataSource.GetPageStartIndexAsync();
+
+
                 var itemsToAdd = await _dataSource.GetItemsAsync(startIndex, count);
 
                 var itemsAddedCount = AddRange(itemsToAdd);
@@ -95,7 +99,11 @@ namespace WeYa.Domain.Util
         }
 
         private bool _hasMoreItems = true;
-        public bool HasMoreItems { get { return _hasMoreItems; } }
+        public bool HasMoreItems
+        {
+            set { _hasMoreItems = value; }
+            get { return _hasMoreItems; }
+        }
 
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
