@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace WeYa.Domain
 {
-    public interface INotifyCache
+    public interface INotifyFileCache
     {
         //保存缓存数据
         Task SaveFile(string path, object value);

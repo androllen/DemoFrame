@@ -57,14 +57,11 @@ namespace WeYa.Core
         /// 若取话题最新，需传此字段，为当前分页最后一个美拍的 ID，用于获取下一页时定位
         /// </summary>
         public int maxid { get; set; }
-        /// <summary>
-        /// 单页返回的记录条数，默认为 20，最多 100。
-        /// </summary>
-        public int count { get; set; }
         public string topic { get; set; }
         public string section { get; set; }
         public string source { get; set; }
-
+        public Dictionary<string, object> Dic { get; set; }
+        public string Uri { get; set; }
         //"id=16
         //&type=1
         //&feature=new

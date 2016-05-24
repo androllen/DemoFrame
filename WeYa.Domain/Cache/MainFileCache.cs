@@ -15,9 +15,9 @@ using System.IO;
 
 namespace WeYa.Domain
 {
-    public class MainDeserializer : INotifyCache
+    public class MainFileCache : INotifyFileCache
     {
-        public MainDeserializer()
+        public MainFileCache()
         {
         }
 

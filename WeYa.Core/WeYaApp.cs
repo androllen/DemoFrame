@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using Caliburn.Micro;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml;
 
 namespace WeYa.Core
 {
@@ -21,11 +23,7 @@ namespace WeYa.Core
             _container = new WinRTContainer();
             _container.RegisterWinRTServices();
         }
-        protected override void PrepareViewFirst()
-        {
-            base.PrepareViewFirst();
-        }
- 
+
         protected override void OnSuspending(object sender, SuspendingEventArgs e)
         {
             base.OnSuspending(sender, e);

@@ -20,19 +20,23 @@ namespace WeYa.Core
 {
     public abstract class BaseService 
     {
-        public delegate void RestCallback<T>(Callback<T> response);
-
-        protected async Task Get(Dictionary<string,object> Dic,  RestCallback<string> callBack)
+        public readonly MainFileCache FileCache;
+        public BaseService()
+        {
+            if (FileCache == null)
+                FileCache = new MainFileCache();
+        }
+        protected async Task Get(ServiceArgument args,  RestCallback<string> callBack)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (var i in Dic)
+            foreach (var i in args.Dic)
             {
                 sb.Append(i.Key);
                 sb.Append("=");
                 sb.Append(i.Value);
                 sb.Append("&");
             }
-            await Get(string.Concat(Const_def.API_Category, sb.ToString().TrimEnd('&')), callBack);
+            await Get(string.Concat(args.Uri, sb.ToString().TrimEnd('&')), callBack);
         }
 
         private async Task Get(string url, RestCallback<string> callBack)
@@ -46,6 +50,8 @@ namespace WeYa.Core
             };
             try
             {
+                CCDebug.Instance.Info(this.ToString() + url);
+
                 using (var client = new HttpClient(handler))
                 {
                     var token = new CancellationToken();

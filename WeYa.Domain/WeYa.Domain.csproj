@@ -114,11 +114,11 @@
     <Compile Include="Callback.cs" />
     <Compile Include="Deserializer\BaseDeserializer.cs" />
     <Compile Include="Deserializer\DeserializerManager.cs" />
-    <Compile Include="Deserializer\MainDeserializer.cs" />
+    <Compile Include="Cache\MainFileCache.cs" />
     <Compile Include="Event\AdaptiveEventArgs.cs" />
     <Compile Include="GlobalInfoManager.cs" />
     <Compile Include="INotifyAppChanged.cs" />
-    <Compile Include="INotifyCache.cs" />
+    <Compile Include="Cache\INotifyFileCache.cs" />
     <Compile Include="Models\AdaptiveType.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Hot.cs" />
@@ -127,6 +127,7 @@
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\NavLink.cs" />
     <Compile Include="Models\SampleDataModel.cs" />
+    <Compile Include="Models\SquareCategories.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

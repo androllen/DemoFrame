@@ -111,9 +111,11 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CCDebug.cs" />
     <Compile Include="Extends\NavigationServiceExtensions.cs" />
     <Compile Include="INotifyCollectionChanged.cs" />
     <Compile Include="Service\BaseService.cs" />
+    <Compile Include="Service\INotifyService.cs" />
     <Compile Include="Service\MainService.cs" />
     <Compile Include="Service\ServiceArgument.cs" />
     <Compile Include="Utils\BaseFrame.cs" />
