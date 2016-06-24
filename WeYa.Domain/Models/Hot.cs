@@ -14,54 +14,31 @@ namespace WeYa.Domain
 {
     public class Hot : BaseModel
     {
-        private string _recommend_caption = string.Empty;
-
+        [JsonProperty("recommend_cover_pic")]
+        public string RecommendCoverPic { get; set; }
 
         [JsonProperty("recommend_caption")]
-        public string recommend_caption
-        {
-            get
-            {
-                return _recommend_caption;
-            }
-            set
-            {
-                if (_recommend_caption != value)
-                    _recommend_caption = value;
-                NotifyOfPropertyChange(nameof(recommend_caption));
-            }
-        }
-        private string _recommend_cover_pic = string.Empty;
-        [JsonProperty("recommend_cover_pic")]
-        public string recommend_cover_pic
-        {
-            get
-            {
-                return _recommend_cover_pic;
-            }
-            set
-            {
-                if (_recommend_cover_pic != value)
-                    _recommend_cover_pic = value;
+        public string RecommendCaption { get; set; }
 
-                NotifyOfPropertyChange(nameof(recommend_cover_pic));
-            }
-        }
+        [JsonProperty("type")]
+        public string Type { get; set; }
 
-        private Media _media;
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("recommend_cover_pic_size")]
+        public string RecommendCoverPicSize { get; set; }
+
         [JsonProperty("media")]
-        public Media media
-        {
-            get
-            {
-                return _media;
-            }
-            set
-            {
-                if (_media != value)
-                    _media = value;
-                NotifyOfPropertyChange(nameof(media));
-            }
-        }
+        public Media Media { get; set; }
+
+
+    }
+    public class CollectHot : List<Hot>
+    {
+        public string Result { get; set; }
     }
 }

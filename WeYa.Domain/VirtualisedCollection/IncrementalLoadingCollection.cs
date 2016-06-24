@@ -12,6 +12,8 @@ using Windows.Foundation;
 using Windows.UI.Xaml.Data;
 using Caliburn.Micro;
 using System.Collections;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace WeYa.Domain.Util
 {
@@ -20,26 +22,20 @@ namespace WeYa.Domain.Util
         IList, 
         ISupportIncrementalLoading
     {
-        private readonly IVirtualisedDataSource<T> _dataSource;
+        private readonly Func<CancellationToken, uint, Task<BindableCollection<T>>> func;
+        private CancellationToken token;
 
-        private DebugLog _log;
         public bool IsLoaded { get; set; }
         public bool IsLoading { get; set; }
 
-        private int? _dataSourceCount;
+        private readonly int _dataSourceCount;
 
-        public IncrementalLoadingCollection(IVirtualisedDataSource<T> dataSource)
+        public IncrementalLoadingCollection(Func<CancellationToken, uint, Task<BindableCollection<T>>> func)
         {
-            _log = new DebugLog(typeof(object));
-
-            _dataSource = dataSource;
-
-            if (dataSource == null)
-            {
-                throw new ArgumentNullException("dataSource", "Data Source is required.");
-            }
+            this.func = func;
+            _dataSourceCount = 10000;
         }
- 
+
         private uint AddRange(BindableCollection<T> items)
         {
             uint count = 0;
@@ -52,40 +48,24 @@ namespace WeYa.Domain.Util
 
             return count;
         }
-
-        private async Task EnsureDataSourceHasBeenCount()
-        {
-            if (!_dataSourceCount.HasValue)
-            {
-                _dataSourceCount = await _dataSource.GetCountAsync();
-            }
-        }
         /// <summary>
         /// 加载更多
         /// IsLoading 作为标志位
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        private async Task<LoadMoreItemsResult> LoadMoreItemsFromDataSourceAsync(uint count)
+        private async Task<LoadMoreItemsResult> LoadMoreItemsFromDataSourceAsync(CancellationToken passedToken, uint count)
         {
             var result = new LoadMoreItemsResult();
             IsLoading = true;
+            this.token = passedToken;
+            BindableCollection<T> tempList = null;
 
             try
             {
-                await EnsureDataSourceHasBeenCount();
-
                 var startIndex = (uint)Count;
-                _log.Info("{0}", startIndex);
-
-
-                var page = await _dataSource.GetPageStartIndexAsync();
-
-
-                var itemsToAdd = await _dataSource.GetItemsAsync(startIndex, count);
-
-                var itemsAddedCount = AddRange(itemsToAdd);
-
+                tempList = await func(passedToken, startIndex);
+                var itemsAddedCount = AddRange(tempList);
                 _hasMoreItems = (_dataSourceCount > Count);
 
                 result.Count = itemsAddedCount;
@@ -111,7 +91,7 @@ namespace WeYa.Domain.Util
             {
                 throw new InvalidOperationException();
             }
-            return AsyncInfo.Run(token => LoadMoreItemsFromDataSourceAsync(count));
+            return AsyncInfo.Run(token => LoadMoreItemsFromDataSourceAsync(token, count));
         }
     }
 }

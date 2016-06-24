@@ -111,7 +111,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CCDebug.cs" />
+    <Compile Include="WeYaLog.cs" />
     <Compile Include="Extends\NavigationServiceExtensions.cs" />
     <Compile Include="INotifyCollectionChanged.cs" />
     <Compile Include="Service\BaseService.cs" />

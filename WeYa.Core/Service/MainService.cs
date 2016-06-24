@@ -19,6 +19,8 @@ using WeYa.Domain;
 using System.Text;
 using System.Diagnostics;
 using System.Xml;
+using WeYa.Core.Deserializer;
+using WeYa.Domain.Deserializer;
 
 namespace WeYa.Core
 {
@@ -79,7 +81,7 @@ namespace WeYa.Core
             });
         }
 
-        public async Task HotGet<T>(ServiceArgument args, Action<BindableCollection<T>> callback)
+        public async Task HotGet(ServiceArgument args, Action<CollectHot> callback)
         {
             var pair = new Dictionary<string, object>();
             pair.Add("id", args.id);
@@ -106,9 +108,10 @@ namespace WeYa.Core
                             var taskCache = FileCache.SaveFile(Const_def.db_CacheDir, response.Data);
 
                             //序列化
-                            var taskModels = JsonConvert.DeserializeObject<BindableCollection<T>>(response.Data);
+                            BaseDeserializer serializer = DeserializerManager.Instance.BuildHotDeserializer();
+                            CollectHot list = serializer.ReadList(response.Data) as CollectHot;
 
-                            callback?.Invoke(taskModels);
+                            callback?.Invoke(list);
                             break;
                         }
                     case HttpErrorStatus.JsonError:

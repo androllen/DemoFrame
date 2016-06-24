@@ -1,8 +1,7 @@
 ﻿using Caliburn.Micro;
 using DemoFrame.ViewModels;
-using WeYa.Tools;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
+using WeYa.Utils;
 
 namespace DemoFrame
 {
@@ -32,8 +31,8 @@ namespace DemoFrame
 
             _container.RegisterSingleton(typeof(INotifyFrameChanged), string.Empty, typeof(PhoneFrameMgr));
 
-            Settings.getInstance.setValues<string>(Settings.KEY_FOLDER, "hello world! key-values");
-            string data = Settings.getInstance.getValues<string>(Settings.KEY_FOLDER, string.Empty);
+            SettingUtil.getInstance.setValues<string>(SettingUtil.KEY_FOLDER, "hello world! key-values");
+            string data = SettingUtil.getInstance.getValues<string>(SettingUtil.KEY_FOLDER, string.Empty);
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)

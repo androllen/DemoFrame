@@ -3,6 +3,7 @@
 ** 日期： 16/5/19 19:20:20
 ** 微博： http://weibo.com/Androllen
 *********************************************************************************/
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,79 +14,88 @@ namespace WeYa.Domain
 {
     public class User : BaseModel
     {
-        public int id { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
 
-        private string _screen_name = string.Empty;
-        public string screen_name
-        {
-            get
-            {
-                return _screen_name;
-            }
-            set
-            {
-                if (_screen_name != value)
-                    _screen_name = value;
-                NotifyOfPropertyChange(nameof(screen_name));
-            }
-        }
-        public int country { get; set; }
-        public int province { get; set; }
-        public int city { get; set; }
-        private string _avatar = string.Empty;
-        public string avatar
-        {
-            get
-            {
-                return _avatar;
-            }
-            set
-            {
-                if (_avatar != value)
-                    _avatar = value;
-                NotifyOfPropertyChange(nameof(avatar));
-            }
-        }
-        public string gender { get; set; }
-        public string birthday { get; set; }
-        public string age { get; set; }
-        public string constellation { get; set; }
-        private bool _verified = false;
-        public bool verified
-        {
-            get
-            {
-                return _verified;
-            }
-            set
-            {
-                if (_verified != value)
-                    _verified = value;
-                NotifyOfPropertyChange(nameof(verified));
-            }
-        }
+        [JsonProperty("screen_name")]
+        public string ScreenName { get; set; }
 
-        public int followers_count { get; set; }
-        public int friends_count { get; set; }
-        public int reposts_count { get; set; }
-        public int videos_count { get; set; }
-        public int created_at { get; set; }
+        [JsonProperty("country")]
+        public int Country { get; set; }
 
-        public int real_videos_count { get; set; }
-        public int photos_count { get; set; }
-        public int be_liked_count { get; set; }
-        public bool following { get; set; }
-        public bool followed_by { get; set; }
-        public bool blocking { get; set; }
-        public bool blocked_by { get; set; }
-        public string url { get; set; }
+        [JsonProperty("province")]
+        public int Province { get; set; }
 
-        public string weibo_share_caption { get; set; }
-        public string facebook_share_caption { get; set; }
-        public string weixin_share_caption { get; set; }
-        public string weixin_friendfeed_share_caption { get; set; }
-        public string qzone_share_caption { get; set; }
-        public string share_pic { get; set; }
-        public string description { get; set; }
+        [JsonProperty("city")]
+        public int City { get; set; }
+
+        [JsonProperty("avatar")]
+        public string Avatar { get; set; }
+
+        [JsonProperty("gender")]
+        public string Gender { get; set; }
+
+        [JsonProperty("birthday")]
+        public string Birthday { get; set; }
+
+        [JsonProperty("age")]
+        public object Age { get; set; }
+
+        [JsonProperty("constellation")]
+        public string Constellation { get; set; }
+
+        [JsonProperty("verified")]
+        public bool Verified { get; set; }
+
+        [JsonProperty("followers_count")]
+        public int FollowersCount { get; set; }
+
+        [JsonProperty("friends_count")]
+        public int FriendsCount { get; set; }
+
+        [JsonProperty("reposts_count")]
+        public int RepostsCount { get; set; }
+
+        [JsonProperty("videos_count")]
+        public int VideosCount { get; set; }
+
+        [JsonProperty("real_videos_count")]
+        public int RealVideosCount { get; set; }
+
+        [JsonProperty("photos_count")]
+        public int PhotosCount { get; set; }
+
+        [JsonProperty("locked_videos_count")]
+        public int LockedVideosCount { get; set; }
+
+        [JsonProperty("real_locked_videos_count")]
+        public int RealLockedVideosCount { get; set; }
+
+        [JsonProperty("locked_photos_count")]
+        public int LockedPhotosCount { get; set; }
+
+        [JsonProperty("be_liked_count")]
+        public int BeLikedCount { get; set; }
+
+        [JsonProperty("url")]
+        public string Url { get; set; }
+
+        [JsonProperty("created_at")]
+        public int CreatedAt { get; set; }
+
+        [JsonProperty("has_password")]
+        public bool HasPassword { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("is_funy_core_user")]
+        public bool IsFunyCoreUser { get; set; }
+
+        [JsonProperty("funy_core_user_created_at")]
+        public int FunyCoreUserCreatedAt { get; set; }
+
+        [JsonProperty("last_publish_time")]
+        public int LastPublishTime { get; set; }
     }
 }

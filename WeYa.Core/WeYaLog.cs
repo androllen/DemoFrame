@@ -12,28 +12,21 @@ using System.Threading.Tasks;
 
 namespace WeYa.Core
 {
-    public class CCDebug
+    public class WeYaLog
     {
-        private static CCDebug debug = new CCDebug();
+        private static WeYaLog debug = new WeYaLog();
 
         private readonly ILog log;
-        public CCDebug()
+        public WeYaLog()
         {
             log = LogManager.GetLog(typeof(object));
         }
 
-        public static CCDebug Instance { get { return debug; } }
+        public static WeYaLog Instance { get { return debug; } }
 
-        public void Info(string format)
-        {
-            log.Info(format);
-        }
         public void Info(string format, params object[] args)
         {
             log.Info(format, args);
         }
-
-      
-
     }
 }

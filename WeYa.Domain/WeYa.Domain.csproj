@@ -115,6 +115,8 @@
     <Compile Include="Deserializer\BaseDeserializer.cs" />
     <Compile Include="Deserializer\DeserializerManager.cs" />
     <Compile Include="Cache\MainFileCache.cs" />
+    <Compile Include="Deserializer\HotDeserializer.cs" />
+    <Compile Include="Deserializer\MediasDeserializer.cs" />
     <Compile Include="Event\AdaptiveEventArgs.cs" />
     <Compile Include="GlobalInfoManager.cs" />
     <Compile Include="INotifyAppChanged.cs" />

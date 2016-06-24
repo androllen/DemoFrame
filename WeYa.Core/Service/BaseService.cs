@@ -16,7 +16,7 @@ using System.Xml;
 using System;
 using WeYa.Domain;
 
-namespace WeYa.Core
+namespace WeYa.Core.Deserializer
 {
     public abstract class BaseService 
     {
@@ -50,7 +50,7 @@ namespace WeYa.Core
             };
             try
             {
-                CCDebug.Instance.Info(this.ToString() + url);
+                WeYaLog.Instance.Info(this.ToString() + url);
 
                 using (var client = new HttpClient(handler))
                 {

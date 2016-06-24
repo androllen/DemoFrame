@@ -218,6 +218,10 @@
       <Project>{057ca838-c89f-4130-a391-aa8df7ac1886}</Project>
       <Name>CCUWPToolkit</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DemoControl\WeYa.Utils\WeYa.Utils.csproj">
+      <Project>{910c1718-1800-4bf8-bdcc-05e8c97ddf2f}</Project>
+      <Name>WeYa.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WeYa.Core\WeYa.Core.csproj">
       <Project>{aa37d92f-55da-43cd-92c3-afff1b8ba7c8}</Project>
       <Name>WeYa.Core</Name>

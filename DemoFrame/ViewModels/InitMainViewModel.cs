@@ -5,7 +5,6 @@
 *********************************************************************************/
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using WeYa.Tools.Utils;
 using System.Collections.ObjectModel;
 using Windows.ApplicationModel;
 using WeYa.Domain.Models;
@@ -14,7 +13,6 @@ namespace DemoFrame.ViewModels
 {
     public class InitMainViewModel : BaseViewModel
     {
-        public IncrementalLoadingCollection<IncrementedItem> InfiniteItems { get; set; }
 
         private string _title;
         public override string Title
@@ -54,9 +52,6 @@ namespace DemoFrame.ViewModels
         {
             if (DesignMode.DesignModeEnabled)
                 return;
-
-            var dataSource = new GeneratingDataSource();
-            InfiniteItems = new IncrementalLoadingCollection<IncrementedItem>(dataSource);
         }
 
     }
